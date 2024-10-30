@@ -1,117 +1,52 @@
-/* Stile generale per il contenitore */
 body {
-    font-family: 'Arial', sans-serif; /* Font generale */
-    background-color: #f0f0f0; /* Colore di sfondo chiaro */
-    margin: 0; /* Rimuove margini di default */
-    padding: 20px; /* Padding globale */
-  }
-  
-  .container {
-    max-width: 1200px; /* Larghezza massima per il contenitore */
-    margin: 0 auto; /* Centra il contenitore */
-    padding: 20px; /* Padding per il contenitore */
-    background-color: white; /* Sfondo bianco per il contenitore */
-    border-radius: 8px; /* Angoli arrotondati */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombra per dare profondità */
-  }
-  
-  /* Stile per il titolo */
-  h1 {
-    text-align: center; /* Centra il titolo */
-    color: #2c3e50; /* Colore del titolo */
-    margin-bottom: 20px; /* Spazio sotto il titolo */
-  }
-  
-  /* Stile per la tabella degli iscritti */
-  table {
-    width: 100%; /* Imposta la larghezza della tabella al 100% */
-    border-collapse: collapse; /* Rimuove spaziature tra le celle */
-  }
-  
-  th, td {
-    border: 1px solid #ddd; /* Aggiunge un bordo alle celle */
-    padding: 12px; /* Aggiunge un padding per un migliore aspetto */
-    text-align: left; /* Allinea il testo a sinistra */
-  }
-  
-  th {
-    background-color: #3498db; /* Colore di sfondo per le intestazioni */
-    color: white; /* Colore del testo per le intestazioni */
-  }
-  
-  td {
-    background-color: #ecf0f1; /* Colore di sfondo per le celle */
-    transition: background-color 0.3s; /* Transizione per l'effetto hover */
-  }
-  
-  td:hover {
-    background-color: #bdc3c7; /* Colore di sfondo al passaggio del mouse */
-  }
-  
-  /* Pulsanti distanziati */
-  button {
-    margin: 10px; /* Aggiunge margini per distanziare i pulsanti */
-    padding: 10px 15px; /* Padding per i pulsanti */
-    border: none; /* Rimuove il bordo di default */
-    border-radius: 5px; /* Angoli arrotondati per i pulsanti */
-    background-color: #3498db; /* Colore di sfondo per i pulsanti */
-    color: white; /* Colore del testo per i pulsanti */
-    cursor: pointer; /* Cambia il cursore quando si passa sopra il pulsante */
-    transition: background-color 0.3s; /* Transizione per l'effetto hover */
-  }
-  
-  button:hover {
-    background-color: #2980b9; /* Colore di sfondo al passaggio del mouse */
-  }
-  
-  /* Stile per il modale */
-  .modal {
-    display: none; /* Nascondi il modale per impostazione predefinita */
-    position: fixed; /* Posizione fissa */
-    z-index: 1; /* Mostra sopra gli altri contenuti */
-    left: 0;
-    top: 0;
-    width: 100%; /* Larghezza piena */
-    height: 100%; /* Altezza piena */
-    overflow: auto; /* Abilita lo scorrimento se necessario */
-    background-color: rgba(0, 0, 0, 0.6); /* Sfondo semi-trasparente più scuro */
-  }
-  
-  .modal-content {
-    background-color: #fefefe; /* Sfondo del modale */
-    margin: 15% auto; /* Margine verticale centrale */
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-section, #content-section, #registration-section {
+    width: 100%;
+    max-width: 600px;
     padding: 20px;
-    border: 1px solid #888; /* Bordo del modale */
-    border-radius: 8px; /* Angoli arrotondati */
-    width: 80%; /* Larghezza del contenuto del modale */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Ombra del modale */
-  }
-  
-  .close {
-    color: #aaa; /* Colore per la "X" di chiusura */
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #2c3e50; /* Colore al passaggio del mouse */
-    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
     cursor: pointer;
-  }
-  
-  /* Stile per la sezione del contenuto */
-  #content-section {
-    width: 100%; /* Imposta la larghezza della sezione contenuto al 100% */
-    height: calc(100vh - 60px); /* Imposta l'altezza per occupare quasi tutto lo schermo */
-    overflow-y: auto; /* Abilita lo scorrimento verticale se necessario */
-  }
-  
-  /* Stile per messaggi di errore */
-  .error {
-    color: red; /* Colore rosso per i messaggi di errore */
-    font-weight: bold; /* Grassetto per evidenziare l'errore */
-    text-align: center; /* Centra il messaggio di errore */
-  }
-  
+}
+
+#info-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+#error-message {
+    color: red;
+}
