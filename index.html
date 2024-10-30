@@ -1,31 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A CASA DEL DON</title>
-    <link rel="stylesheet" href="style.css"> <!-- Collega il file CSS -->
-    <script src="app.js" defer></script> <!-- Collega il file JavaScript -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Benvenuti a CASA DEL DON</h1>
-    <!-- Aggiungi qui il resto del tuo contenuto -->
-    
     <div id="login-section">
+        <h2>Accesso</h2>
         <input type="password" id="password" placeholder="Inserisci la password">
         <button id="login-button">Accedi</button>
-        <div id="error-message" style="color: red;"></div>
+        <p id="error-message" style="color: red;"></p>
     </div>
 
     <div id="content-section" style="display: none;">
-        <button onclick="openRegistration()">Iscrivi un Bambino</button>
-        <div id="registration-section" style="display: none;">
-            <input type="text" id="name" placeholder="Nome">
-            <input type="text" id="intolerances" placeholder="Intolleranze">
-            <input type="text" id="phone" placeholder="Telefono">
-            <button onclick="registerMember()">Registrati</button>
-            <button onclick="cancelRegistration()">Annulla</button>
-        </div>
+        <h2>Elenco Iscritti</h2>
+        <button onclick="openRegistration()">Iscrivi Nuovo Bambino</button>
+
         <table>
             <thead>
                 <tr>
@@ -35,15 +27,29 @@
                     <th>Azioni</th>
                 </tr>
             </thead>
-            <tbody id="members-body">
-                <!-- Gli iscritti verranno visualizzati qui -->
-            </tbody>
+            <tbody id="members-body"></tbody>
         </table>
     </div>
 
+    <!-- Modulo di Registrazione -->
+    <div id="registration-section" style="display: none;">
+        <h3>Nuova Iscrizione</h3>
+        <input type="text" id="name" placeholder="Nome del bambino">
+        <input type="text" id="intolerances" placeholder="Intolleranze">
+        <input type="text" id="phone" placeholder="Telefono genitori">
+        <button onclick="registerMember()">Salva</button>
+        <button onclick="cancelRegistration()">Annulla</button>
+    </div>
+
+    <!-- Modale Info -->
     <div id="info-modal" style="display: none;">
         <div id="info-details"></div>
         <button onclick="closeModal()">Chiudi</button>
     </div>
+
+    <!-- Firebase e JavaScript -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
