@@ -1,29 +1,41 @@
-// JavaScript per la gestione della password e degli iscritti
+// Configurazione Firebase (inserisci i tuoi dati di Firebase)
+const firebaseConfig = {
+    apiKey: "TUA_API_KEY",
+    authDomain: "TUO_DOMINIO.firebaseapp.com",
+    projectId: "IL_TUO_ID",
+    storageBucket: "IL_TUO_BUCKET",
+    messagingSenderId: "IL_TUO_MESSAGING_SENDER_ID",
+    appId: "IL_TUO_APP_ID",
+    databaseURL: "URL_TUO_DATABASE"
+};
 
-let members = []; // Array per memorizzare i membri registrati
-const correctPassword = "tua_password"; // Cambia "tua_password" con la password desiderata
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database(app);
 
-// Funzione per caricare i membri dal localStorage
+let members = []; // Array per memorizzare i membri
+const correctPassword = "tua_password"; // Sostituisci con la password
+
+// Funzione per caricare i membri da Firebase
 function loadMembers() {
-    const storedMembers = localStorage.getItem("members");
-    if (storedMembers) {
-        members = JSON.parse(storedMembers); // Converte la stringa JSON in un array
-    }
-    displayMembers(); // Mostra i membri caricati
+    firebase.database().ref('members').on('value', (snapshot) => {
+        const data = snapshot.val();
+        members = data ? Object.values(data) : [];
+        displayMembers();
+    });
 }
 
-// Funzione per gestire l'accesso
+// Funzione per il login
 document.getElementById("login-button").onclick = function() {
     const passwordInput = document.getElementById("password").value;
     const errorMessage = document.getElementById("error-message");
 
     if (passwordInput === correctPassword) {
-        document.getElementById("login-section").style.display = "none"; // Nasconde la sezione di login
-        document.getElementById("content-section").style.display = "block"; // Mostra la sezione principale
-        errorMessage.innerText = ""; // Rimuove eventuali messaggi di errore
-        loadMembers(); // Carica i membri dal localStorage
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("content-section").style.display = "block";
+        errorMessage.innerText = "";
+        loadMembers();
     } else {
-        errorMessage.innerText = "Password errata. Riprova."; // Mostra messaggio di errore
+        errorMessage.innerText = "Password errata. Riprova.";
     }
 };
 
@@ -33,24 +45,27 @@ function registerMember() {
     const intolerances = document.getElementById("intolerances").value;
     const phone = document.getElementById("phone").value;
 
-    // Aggiungi un nuovo membro all'array
     const newMember = {
         nome: name,
         intolleranze: intolerances,
         telefono: phone,
-        dataIscrizione: new Date().toLocaleString() // Aggiunge la data di iscrizione
+        dataIscrizione: new Date().toLocaleString()
     };
 
-    members.push(newMember); // Aggiunge il nuovo membro
-    saveMembers(); // Salva i membri nel localStorage
-    displayMembers(); // Mostra i membri aggiornati
-    cancelRegistration(); // Chiude il modulo di registrazione
+    const newMemberRef = firebase.database().ref('members').push();
+    newMemberRef.set(newMember)
+        .then(() => {
+            cancelRegistration();
+        })
+        .catch((error) => {
+            console.error("Errore nell'aggiunta del membro:", error);
+        });
 }
 
-// Funzione per visualizzare i membri
+// Funzione per visualizzare i membri nella tabella
 function displayMembers() {
     const membersBody = document.getElementById("members-body");
-    membersBody.innerHTML = ""; // Pulisce la tabella esistente
+    membersBody.innerHTML = "";
 
     members.forEach((member, index) => {
         const row = document.createElement("tr");
@@ -60,29 +75,29 @@ function displayMembers() {
             <td>${member.telefono}</td>
             <td>
                 <button onclick="showInfo(${index})">Info</button>
-                <button onclick="confirmDelete(${index})">Elimina</button> <!-- Pulsante di eliminazione -->
+                <button onclick="confirmDelete(${index})">Elimina</button>
             </td>
         `;
-        membersBody.appendChild(row); // Aggiunge la riga alla tabella
+        membersBody.appendChild(row);
     });
 }
 
-// Funzione per salvare i membri nel localStorage
-function saveMembers() {
-    localStorage.setItem("members", JSON.stringify(members)); // Salva l'array come stringa JSON
-}
-
-// Funzione per confermare l'eliminazione di un membro
+// Funzione per confermare ed eliminare un membro
 function confirmDelete(index) {
     const confirmDelete = confirm("Sei sicuro di voler eliminare questo bambino?");
     if (confirmDelete) {
-        members.splice(index, 1); // Rimuove il membro dall'elenco
-        saveMembers(); // Salva l'elenco aggiornato nel localStorage
-        displayMembers(); // Aggiorna la visualizzazione
+        const memberId = Object.keys(members)[index];
+        firebase.database().ref(`members/${memberId}`).remove()
+            .then(() => {
+                console.log("Membro eliminato con successo.");
+            })
+            .catch((error) => {
+                console.error("Errore durante l'eliminazione:", error);
+            });
     }
 }
 
-// Funzione per mostrare le informazioni del membro in un modale
+// Funzione per mostrare le informazioni del membro
 function showInfo(index) {
     const member = members[index];
     const infoDetails = document.getElementById("info-details");
@@ -92,7 +107,7 @@ function showInfo(index) {
         <strong>Telefono:</strong> ${member.telefono}<br>
         <strong>Data di Iscrizione:</strong> ${member.dataIscrizione}
     `;
-    document.getElementById("info-modal").style.display = "block"; // Mostra il modale
+    document.getElementById("info-modal").style.display = "block";
 }
 
 // Funzione per chiudere il modale
@@ -114,4 +129,4 @@ function cancelRegistration() {
 }
 
 // Carica i membri quando la pagina viene caricata
-window.onload = loadMembers; // Chiama la funzione per caricare i membri al caricamento della pagina
+window.onload = loadMembers;
