@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -5,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A CASA DEL DON</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>A CASA DEL DON</h1>
-
+        <h1 style="font-family: 'Zapfino', sans-serif;">A CASA DEL DON</h1>
         <!-- Sezione di accesso -->
         <div id="login-section">
             <h2>Accesso</h2>
@@ -18,10 +17,9 @@
             <button id="login-button">Accedi</button>
             <div id="error-message" class="error"></div>
         </div>
-
         <!-- Sezione di gestione degli iscritti -->
         <div id="content-section" style="display: none;">
-            <button id="start-registration-button" onclick="startRegistration()">Inizia Iscrizione</button>
+            <button onclick="startBatchRegistration()">Inizia Registrazione</button>
             <div id="members-table-container">
                 <table id="members-table">
                     <thead>
@@ -35,8 +33,6 @@
                     <tbody id="members-body"></tbody>
                 </table>
             </div>
-
-            <!-- Modulo di registrazione per iscrizione di un nuovo membro -->
             <div id="registration-section" style="display: none;">
                 <h2>Iscrizione</h2>
                 <input type="text" id="name" placeholder="Nome" required />
@@ -45,18 +41,7 @@
                 <button onclick="registerMember()">Registrati</button>
                 <button onclick="cancelRegistration()">Annulla</button>
             </div>
-
-            <!-- Modulo di modifica -->
-            <div id="edit-section" style="display: none;">
-                <h2>Modifica Iscrizione</h2>
-                <input type="text" id="edit-name" placeholder="Nome" required />
-                <input type="text" id="edit-intolerances" placeholder="Intolleranze" />
-                <input type="text" id="edit-phone" placeholder="Telefono" required />
-                <button onclick="saveEdit()">Salva Modifiche</button>
-                <button onclick="cancelEdit()">Annulla</button>
-            </div>
         </div>
-
         <!-- Modale per informazioni -->
         <div id="info-modal" class="modal">
             <div class="modal-content">
@@ -67,6 +52,9 @@
         </div>
     </div>
 
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
