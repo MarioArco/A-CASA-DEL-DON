@@ -1,16 +1,17 @@
-// Importa le funzioni di Firebase
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, onValue } from "firebase/database";
+// Firebase import e configurazione
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 // Configurazione Firebase
 const firebaseConfig = {
-  apiKey: "tuo_api_key",
-  authDomain: "tuo_auth_domain",
-  databaseURL: "tuo_database_url",
-  projectId: "tuo_project_id",
-  storageBucket: "tuo_storage_bucket",
-  messagingSenderId: "tuo_messaging_sender_id",
-  appId: "tuo_app_id"
+  apiKey: "AIzaSyAdasW04yrccN5oERBloKm56SiP6jI_I60",
+  authDomain: "a-casa-del-don.firebaseapp.com",
+  databaseURL: "https://console.firebase.google.com/u/0/project/a-casa-del-don/database/a-casa-del-don-default-rtdb/data/~2F",
+  projectId: "a-casa-del-don",
+  storageBucket: "a-casa-del-don.firebasestorage.app",
+  messagingSenderId: "96724970919",
+  appId: "1:96724970919:web:4ae17950c8904793a35a82"
+  measurementId: "G-QTBGDHV4FX"
 };
 
 // Inizializza Firebase
@@ -19,7 +20,7 @@ const database = getDatabase(app);
 
 let members = [];
 
-// Gestione accesso
+// Accesso con password
 document.getElementById("login-button").onclick = function() {
   const passwordInput = document.getElementById("password").value;
   const errorMessage = document.getElementById("error-message");
@@ -40,29 +41,33 @@ function loadMembers() {
     members = [];
     snapshot.forEach((childSnapshot) => {
       const childData = childSnapshot.val();
-      members.push(childData);
+      members.push({ ...childData, key: childSnapshot.key });
     });
     displayMembers();
   });
 }
 
-// Avvia la registrazione continua
+// Funzione di registrazione in sequenza
 function startRegistration() {
   registerNextMember();
 }
 
-// Registra il prossimo membro
+// Funzione per registrare un nuovo membro
 function registerNextMember() {
   const name = prompt("Nome:");
   if (!name) return;
   const intolerances = prompt("Intolleranze:");
   const phone = prompt("Telefono:");
 
-  const newMember = { nome: name, intolleranze: intolerances, telefono: phone, dataIscrizione: new Date().toLocaleString() };
+  const newMember = {
+    nome: name,
+    intolleranze: intolerances,
+    telefono: phone,
+    dataIscrizione: new Date().toLocaleString()
+  };
+
   const membersRef = ref(database, 'members/');
   push(membersRef, newMember);
-  loadMembers();
-  registerNextMember();
 }
 
 // Visualizza i membri in tabella
@@ -70,29 +75,29 @@ function displayMembers() {
   const membersBody = document.getElementById("members-body");
   membersBody.innerHTML = "";
 
-  members.forEach((member, index) => {
+  members.forEach((member) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${member.nome}</td>
       <td>${member.intolleranze}</td>
       <td>${member.telefono}</td>
       <td>
-        <button onclick="showInfo(${index})">Info</button>
-        <button onclick="deleteMember(${index})">Elimina</button>
+        <button onclick="showInfo('${member.key}')">Info</button>
+        <button onclick="deleteMember('${member.key}')">Elimina</button>
       </td>`;
     membersBody.appendChild(row);
   });
 }
 
 // Elimina un membro
-function deleteMember(index) {
-  members.splice(index, 1);
-  displayMembers();
+function deleteMember(key) {
+  const memberRef = ref(database, `members/${key}`);
+  remove(memberRef).then(() => loadMembers());
 }
 
 // Mostra le informazioni del membro
-function showInfo(index) {
-  const member = members[index];
+function showInfo(key) {
+  const member = members.find(m => m.key === key);
   const infoDetails = document.getElementById("info-details");
   infoDetails.innerHTML = `
     <strong>Nome:</strong> ${member.nome}<br>
