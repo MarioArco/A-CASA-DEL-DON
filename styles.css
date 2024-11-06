@@ -1,4 +1,3 @@
-/* Stile generale per il contenitore */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f0f0f0;
@@ -15,16 +14,12 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Stile per il titolo */
 h1 {
   text-align: center;
   color: #2c3e50;
-  margin-bottom: 20px;
-  font-family: 'Zapfino', 'Dancing Script', cursive;
-  font-size: 2.5em;
+  font-family: Zapfino, cursive;
 }
 
-/* Stile per la tabella degli iscritti */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -41,21 +36,13 @@ th {
   color: white;
 }
 
-td {
-  background-color: #ecf0f1;
-  transition: background-color 0.3s;
-}
-
 td:hover {
   background-color: #bdc3c7;
 }
 
-/* Pulsanti */
 button {
   margin: 10px;
   padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
   background-color: #3498db;
   color: white;
   cursor: pointer;
@@ -66,7 +53,6 @@ button:hover {
   background-color: #2980b9;
 }
 
-/* Stile per il modale */
 .modal {
   display: none;
   position: fixed;
@@ -82,7 +68,6 @@ button:hover {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
   border-radius: 8px;
   width: 80%;
 }
@@ -91,34 +76,4 @@ button:hover {
   color: #aaa;
   float: right;
   font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #2c3e50;
-  cursor: pointer;
-}
-
-/* Messaggi di errore */
-.error {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* Stile per la sezione del contenuto */
-#content-section {
-  width: 100%;
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-}
-
-/* Stile per la sezione di registrazione */
-#registration-section, #edit-section {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
 }
