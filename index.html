@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A CASA DEL DON</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Collegamento a Google Fonts per Zapfino (se disponibile) e Dancing Script -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Collega il CSS -->
 </head>
 <body>
     <div class="container">
@@ -22,7 +20,7 @@
 
         <!-- Sezione di gestione degli iscritti -->
         <div id="content-section" style="display: none;">
-            <button id="start-registration-button" onclick="startBatchRegistration()">Inizia Registrazione</button>
+            <button onclick="startRegistration()">Inizia Registrazione</button>
             <div id="members-table-container">
                 <table id="members-table">
                     <thead>
@@ -36,26 +34,6 @@
                     <tbody id="members-body"></tbody>
                 </table>
             </div>
-
-            <!-- Modulo di registrazione per iscrizione di un nuovo membro -->
-            <div id="registration-section" style="display: none;">
-                <h2>Iscrizione</h2>
-                <input type="text" id="name" placeholder="Nome" required />
-                <input type="text" id="intolerances" placeholder="Intolleranze" />
-                <input type="text" id="phone" placeholder="Telefono" required />
-                <button onclick="registerMember()">Registrati</button>
-                <button onclick="cancelRegistration()">Annulla</button>
-            </div>
-
-            <!-- Modulo di modifica -->
-            <div id="edit-section" style="display: none;">
-                <h2>Modifica Iscrizione</h2>
-                <input type="text" id="edit-name" placeholder="Nome" required />
-                <input type="text" id="edit-intolerances" placeholder="Intolleranze" />
-                <input type="text" id="edit-phone" placeholder="Telefono" required />
-                <button onclick="saveEdit()">Salva Modifiche</button>
-                <button onclick="cancelEdit()">Annulla</button>
-            </div>
         </div>
 
         <!-- Modale per informazioni -->
@@ -68,7 +46,8 @@
         </div>
     </div>
 
-    <!-- Importa Firebase e il tuo script -->
-    <script type="module" src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="script.js"></script> <!-- Collega il JavaScript -->
 </body>
 </html>
