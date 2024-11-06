@@ -186,3 +186,24 @@ document.getElementById("phone").addEventListener("keydown", function (event) {
         event.preventDefault(); // Previene l'invio del modulo
     }
 });
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAdasW04yrccN5oERBloKm56SiP6jI_I60",
+  authDomain: "a-casa-del-don.firebaseapp.com",
+  projectId: "a-casa-del-don",
+  storageBucket: "a-casa-del-don.firebasestorage.app",
+  messagingSenderId: "96724970919",
+  appId: "1:96724970919:web:4ae17950c8904793a35a82",
+  measurementId: "G-QTBGDHV4FX"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
