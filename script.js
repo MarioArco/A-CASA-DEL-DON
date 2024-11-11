@@ -1,152 +1,148 @@
-let members = [];  // Array per i membri
-const correctCredentials = {
-  "3292413810": "1",  // Numero e password
-  "3791905110": "spettacoli"
-};
+// Dati di accesso
+const validCredentials = [
+    { phone: "3292413810", password: "1", accessLevel: "welcome" },
+    { phone: "3791905110", password: "spettacoli", accessLevel: "center" }
+];
 
-// Funzione per gestire il login
-document.getElementById("login-button").onclick = function() {
-  const phoneInput = document.getElementById("phone").value;
-  const passwordInput = document.getElementById("password").value;
-  const errorMessage = document.getElementById("error-message");
+// Array per i bambini iscritti
+let children = [];
+let currentChildIndex = -1;
 
-  if (correctCredentials[phoneInput] === passwordInput) {
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("content-section").style.display = "block";
-    errorMessage.innerText = "";
-    loadMembers();  // Carica i membri
-  } else {
-    errorMessage.innerText = "Credenziali errate. Riprova.";
-  }
-};
+// Funzione di login
+function login() {
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("password").value;
+    const errorMessage = document.getElementById("error-message");
 
-// Funzione per caricare i membri
-function loadMembers() {
-  const storedMembers = localStorage.getItem("members");
-  if (storedMembers) {
-    members = JSON.parse(storedMembers);
-  }
-  displayMembers();  // Visualizza i membri
+    const user = validCredentials.find(u => u.phone === phone && u.password === password);
+
+    if (user) {
+        document.getElementById("login-section").style.display = "none";
+        if (user.accessLevel === "welcome") {
+            document.getElementById("welcome-section").style.display = "block";
+        } else if (user.accessLevel === "center") {
+            document.getElementById("center-section").style.display = "block";
+        }
+    } else {
+        errorMessage.innerText = "Credenziali errate, riprova.";
+    }
 }
 
-// Funzione per mostrare i membri nella tabella
-function displayMembers() {
-  const membersBody = document.getElementById("members-body");
-  membersBody.innerHTML = "";
+// Funzione per aggiungere un bambino
+function addChild() {
+    const newChild = {
+        firstName: document.getElementById("first-name").value,
+        lastName: document.getElementById("last-name").value,
+        intolerances: document.getElementById("intolerances").value,
+        fatherPhone: document.getElementById("father-phone").value,
+        fatherPassword: document.getElementById("father-password").value,
+        motherPhone: document.getElementById("mother-phone").value,
+        motherPassword: document.getElementById("mother-password").value,
+        registrationTime: new Date().toLocaleString()
+    };
 
-  members.forEach((member, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${member.name}</td>
-      <td>${member.surname}</td>
-      <td>${member.intolerances}</td>
-      <td>${member.phoneFather}</td>
-      <td>${member.phoneMother}</td>
-      <td>
-        <button onclick="showInfo(${index})">Info</button>
-        <button onclick="openEditModal(${index})">✏️</button>
-        <button onclick="confirmDelete(${index})">🗑️</button>
-      </td>
+    children.push(newChild);
+    displayChildren();
+}
+
+// Funzione per visualizzare i bambini iscritti
+function displayChildren() {
+    const childrenBody = document.getElementById("registration-body");
+    childrenBody.innerHTML = "";
+
+    children.forEach((child, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${child.firstName}</td>
+            <td>${child.lastName}</td>
+            <td>${child.intolerances}</td>
+            <td>${child.fatherPhone}</td>
+            <td>${child.motherPhone}</td>
+            <td>
+                <button class="edit" onclick="openEditModal(${index})">✏️</button>
+                <button class="info" onclick="viewInfo(${index})">ℹ️</button>
+                <button class="trash" onclick="openDeleteModal(${index})">🗑️</button>
+            </td>
+        `;
+        childrenBody.appendChild(row);
+    });
+}
+
+// Funzione per aprire il modale delle informazioni
+function viewInfo(index) {
+    const child = children[index];
+    const infoText = `
+        <strong>Nome:</strong> ${child.firstName} <br>
+        <strong>Cognome:</strong> ${child.lastName} <br>
+        <strong>Intolleranze:</strong> ${child.intolerances} <br>
+        <strong>Telefono Padre:</strong> ${child.fatherPhone} <br>
+        <strong>Password Padre:</strong> ${child.fatherPassword} <br>
+        <strong>Telefono Madre:</strong> ${child.motherPhone} <br>
+        <strong>Password Madre:</strong> ${child.motherPassword} <br>
+        <strong>Iscritto il:</strong> ${child.registrationTime}
     `;
-    membersBody.appendChild(row);
-  });
+    document.getElementById("info-text").innerHTML = infoText;
+    document.getElementById("info-modal").style.display = "block";
 }
 
-// Funzione per salvare i membri nel localStorage
-function saveMembers() {
-  localStorage.setItem("members", JSON.stringify(members));
-}
-
-// Funzione per confermare l'eliminazione di un membro
-function confirmDelete(index) {
-  const confirmDelete = confirm("Sei sicuro di voler eliminare questo bambino?");
-  if (confirmDelete) {
-    members.splice(index, 1);
-    saveMembers();
-    displayMembers();
-  }
-}
-
-// Funzione per mostrare le informazioni del bambino
-function showInfo(index) {
-  const member = members[index];
-  const infoDetails = document.getElementById("info-details");
-  infoDetails.innerHTML = `
-    <strong>Nome:</strong> ${member.name}<br>
-    <strong>Cognome:</strong> ${member.surname}<br>
-    <strong>Intolleranze:</strong> ${member.intolerances}<br>
-    <strong>Telefono Padre:</strong> ${member.phoneFather}<br>
-    <strong>Telefono Madre:</strong> ${member.phoneMother}<br>
-    <strong>Data di Iscrizione:</strong> ${member.registrationDate}
-  `;
-  document.getElementById("info-modal").style.display = "block";
-}
-
-// Funzione per chiudere i modali
-function closeModal() {
-  document.getElementById("info-modal").style.display = "none";
+// Funzione per chiudere il modale delle informazioni
+function closeInfoModal() {
+    document.getElementById("info-modal").style.display = "none";
 }
 
 // Funzione per aprire il modale di modifica
 function openEditModal(index) {
-  const member = members[index];
-  document.getElementById("edit-name").value = member.name;
-  document.getElementById("edit-surname").value = member.surname;
-  document.getElementById("edit-intolerances").value = member.intolerances;
-  document.getElementById("edit-phone-father").value = member.phoneFather;
-  document.getElementById("edit-phone-mother").value = member.phoneMother;
-  document.getElementById("edit-modal").style.display = "block";
+    const child = children[index];
+    currentChildIndex = index;
 
-  // Salva l'indice del membro da modificare
-  window.currentEditingIndex = index;
-}
+    document.getElementById("edit-first-name").value = child.firstName;
+    document.getElementById("edit-last-name").value = child.lastName;
+    document.getElementById("edit-intolerances").value = child.intolerances;
+    document.getElementById("edit-father-phone").value = child.fatherPhone;
+    document.getElementById("edit-father-password").value = child.fatherPassword;
+    document.getElementById("edit-mother-phone").value = child.motherPhone;
+    document.getElementById("edit-mother-password").value = child.motherPassword;
 
-// Funzione per salvare le modifiche
-function saveChanges() {
-  const name = document.getElementById("edit-name").value;
-  const surname = document.getElementById("edit-surname").value;
-  const intolerances = document.getElementById("edit-intolerances").value;
-  const phoneFather = document.getElementById("edit-phone-father").value;
-  const phoneMother = document.getElementById("edit-phone-mother").value;
-
-  // Aggiorna il membro
-  members[window.currentEditingIndex] = {
-    name,
-    surname,
-    intolerances,
-    phoneFather,
-    phoneMother,
-    registrationDate: new Date().toLocaleString()
-  };
-  
-  saveMembers();
-  displayMembers();
-  closeEditModal();
+    document.getElementById("edit-modal").style.display = "block";
 }
 
 // Funzione per chiudere il modale di modifica
 function closeEditModal() {
-  document.getElementById("edit-modal").style.display = "none";
+    document.getElementById("edit-modal").style.display = "none";
 }
 
-// Funzione per aggiungere un nuovo bambino
-function openRegistration() {
-  const name = prompt("Nome del bambino:");
-  const surname = prompt("Cognome del bambino:");
-  const intolerances = prompt("Intolleranze (se presenti):");
-  const phoneFather = prompt("Telefono del padre:");
-  const phoneMother = prompt("Telefono della madre:");
+// Funzione per salvare le modifiche
+function saveChanges() {
+    const updatedChild = {
+        firstName: document.getElementById("edit-first-name").value,
+        lastName: document.getElementById("edit-last-name").value,
+        intolerances: document.getElementById("edit-intolerances").value,
+        fatherPhone: document.getElementById("edit-father-phone").value,
+        fatherPassword: document.getElementById("edit-father-password").value,
+        motherPhone: document.getElementById("edit-mother-phone").value,
+        motherPassword: document.getElementById("edit-mother-password").value,
+        registrationTime: children[currentChildIndex].registrationTime
+    };
 
-  const newMember = {
-    name,
-    surname,
-    intolerances,
-    phoneFather,
-    phoneMother,
-    registrationDate: new Date().toLocaleString()
-  };
+    children[currentChildIndex] = updatedChild;
+    closeEditModal();
+    displayChildren();
+}
 
-  members.push(newMember);
-  saveMembers();
-  displayMembers();
+// Funzione per aprire il modale di conferma eliminazione
+function openDeleteModal(index) {
+    currentChildIndex = index;
+    document.getElementById("delete-modal").style.display = "block";
+}
+
+// Funzione per confermare l'eliminazione
+function confirmDelete() {
+    children.splice(currentChildIndex, 1);
+    closeDeleteModal();
+    displayChildren();
+}
+
+// Funzione per chiudere il modale di conferma eliminazione
+function closeDeleteModal() {
+    document.getElementById("delete-modal").style.display = "none";
 }
