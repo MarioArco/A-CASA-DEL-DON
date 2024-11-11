@@ -123,3 +123,7 @@ td {
 #delete-modal button:hover {
     background-color: #c0392b;
 }
+
+#edit-modal button {
+    margin: 10px; /* Imposta uno spazio tra i pulsanti */
+}
