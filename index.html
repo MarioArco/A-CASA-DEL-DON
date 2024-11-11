@@ -3,56 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A CASA DEL DON</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Collegamento al CSS -->
+    <title>Centro Ricreativo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>A CASA DEL DON</h1>
+        <h1>Centro Ricreativo</h1>
 
-        <!-- Sezione di gestione degli iscritti -->
-        <div id="content-section">
-            <button onclick="openRegistration()">Iscrivi un bambino</button>
-            <button id="show-info">Info</button>
-
-            <!-- Modulo per l'iscrizione -->
-            <div id="registration-section" style="display: none;">
-                <h2>Iscrizione</h2>
-                <input type="text" id="name" placeholder="Nome" required />
-                <input type="text" id="intolerances" placeholder="Intolleranze" />
-                <input type="text" id="phone" placeholder="Telefono" required />
-                <button onclick="registerMember()">Registrati</button>
-                <button onclick="cancelRegistration()">Annulla</button>
-            </div>
-
-            <!-- Tabella per visualizzare i membri -->
-            <div id="members-table-container">
-                <table id="members-table">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Intolleranze</th>
-                            <th>Telefono</th>
-                            <th>Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody id="members-body"></tbody>
-                </table>
-            </div>
+        <!-- Login Section -->
+        <div id="login-section">
+            <h2>Login</h2>
+            <input type="text" id="phone" placeholder="Numero di telefono" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <button onclick="login()">Accedi</button>
+            <div id="error-message" class="error"></div>
         </div>
 
-        <!-- Modale per informazioni -->
-        <div id="info-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Informazioni Iscritto</h2>
-                <div id="info-details"></div>
+        <!-- Benvenuto Message -->
+        <div id="welcome-section" style="display:none;">
+            <h2>Benvenuto!</h2>
+        </div>
+
+        <!-- Centro Ricreativo -->
+        <div id="center-section" style="display:none;">
+            <h2>Gestione Centro Ricreativo</h2>
+            <table id="registration-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Intolleranze</th>
+                        <th>Telefono Padre</th>
+                        <th>Telefono Madre</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="registration-body"></tbody>
+            </table>
+
+            <!-- Modulo di iscrizione -->
+            <div id="registration-form">
+                <h3>Iscrizione Nuovo Bambino</h3>
+                <input type="text" id="first-name" placeholder="Nome" required />
+                <input type="text" id="last-name" placeholder="Cognome" required />
+                <input type="text" id="intolerances" placeholder="Intolleranze" />
+                <input type="text" id="father-phone" placeholder="Telefono Padre" required />
+                <input type="text" id="mother-phone" placeholder="Telefono Madre" required />
+                <button onclick="addChild()">Aggiungi Bambino</button>
             </div>
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-    <script src="script.js"></script> <!-- Collegamento al JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
