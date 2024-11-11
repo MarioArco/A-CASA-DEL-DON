@@ -11,27 +11,38 @@
     <div class="container">
         <h1>A CASA DEL DON</h1>
 
-        <div id="registration-section">
-            <h2>Iscrizione</h2>
-            <input type="text" id="name" placeholder="Nome" required />
-            <input type="text" id="intolerances" placeholder="Intolleranze" />
-            <input type="text" id="phone" placeholder="Telefono" required />
-            <button onclick="registerMember()">Registrati</button>
+        <!-- Sezione Login -->
+        <div id="login-section">
+            <h2>Login</h2>
+            <input type="password" id="password" placeholder="Inserisci la password" required />
+            <button id="login-button">Accedi</button>
+            <p id="error-message" class="error"></p>
         </div>
 
-        <div id="members-table-container">
-            <h2>Elenco Bambini</h2>
-            <table id="members-table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Intolleranze</th>
-                        <th>Telefono</th>
-                        <th>Data di Iscrizione</th>
-                    </tr>
-                </thead>
-                <tbody id="members-body"></tbody>
-            </table>
+        <!-- Sezione principale, visibile solo dopo il login -->
+        <div id="content-section" style="display: none;">
+            <div id="registration-section">
+                <h2>Iscrizione Bambino</h2>
+                <input type="text" id="name" placeholder="Nome" required />
+                <input type="text" id="intolerances" placeholder="Intolleranze" />
+                <input type="text" id="phone" placeholder="Telefono" required />
+                <button onclick="registerMember()">Registrati</button>
+            </div>
+
+            <div id="members-table-container">
+                <h2>Elenco Bambini</h2>
+                <table id="members-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Intolleranze</th>
+                            <th>Telefono</th>
+                            <th>Data di Iscrizione</th>
+                        </tr>
+                    </thead>
+                    <tbody id="members-body"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
