@@ -127,3 +127,8 @@ td {
 #edit-modal button {
     margin: 10px; /* Imposta uno spazio tra i pulsanti */
 }
+
+#edit-modal button {
+    margin: 15px 10px; /* Aggiunge margine a destra e a sinistra */
+}
+
