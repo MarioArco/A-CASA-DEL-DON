@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 // Variabile per la password corretta
-const correctPassword = "tua_password"; // Sostituisci con la password desiderata
+const correctPassword = "acasadeldonandria1"; // Sostituisci con la password desiderata
 
 // Funzione di login anonimo e verifica password
 function login() {
