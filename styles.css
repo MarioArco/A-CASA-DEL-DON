@@ -82,9 +82,22 @@ td {
     font-size: 20px;
 }
 
+#registration-table .actions {
+    display: flex;
+    gap: 10px; /* Distanza tra le icone */
+    justify-content: center; /* Centra le icone orizzontalmente */
+}
+
 #registration-table .key, #registration-table .info, #registration-table .trash {
     font-size: 20px;
     color: #3498db;
+    cursor: pointer;
+}
+
+#registration-table .key:hover,
+#registration-table .info:hover,
+#registration-table .trash:hover {
+    color: #2980b9;
 }
 
 #password-modal, #delete-modal {
