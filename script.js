@@ -6,6 +6,7 @@ const validCredentials = [
 
 // Array per i bambini iscritti
 let children = [];
+let currentChildIndex = -1;
 
 // Funzione di login
 function login() {
@@ -16,10 +17,7 @@ function login() {
     const user = validCredentials.find(u => u.phone === phone && u.password === password);
 
     if (user) {
-        // Nascondi la sezione di login
         document.getElementById("login-section").style.display = "none";
-
-        // Mostra la sezione appropriata
         if (user.accessLevel === "welcome") {
             document.getElementById("welcome-section").style.display = "block";
         } else if (user.accessLevel === "center") {
@@ -32,26 +30,17 @@ function login() {
 
 // Funzione per aggiungere un bambino
 function addChild() {
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const intolerances = document.getElementById("intolerances").value;
-    const fatherPhone = document.getElementById("father-phone").value;
-    const fatherPassword = document.getElementById("father-password").value;
-    const motherPhone = document.getElementById("mother-phone").value;
-    const motherPassword = document.getElementById("mother-password").value;
-
     const newChild = {
-        firstName,
-        lastName,
-        intolerances,
-        fatherPhone,
-        fatherPassword,
-        motherPhone,
-        motherPassword,
+        firstName: document.getElementById("first-name").value,
+        lastName: document.getElementById("last-name").value,
+        intolerances: document.getElementById("intolerances").value,
+        fatherPhone: document.getElementById("father-phone").value,
+        fatherPassword: document.getElementById("father-password").value,
+        motherPhone: document.getElementById("mother-phone").value,
+        motherPassword: document.getElementById("mother-password").value,
         registrationTime: new Date().toLocaleString()
     };
 
-    // Aggiungi il bambino all'array
     children.push(newChild);
     displayChildren();
 }
@@ -80,6 +69,7 @@ function displayChildren() {
 
 // Funzione per aprire il modale delle informazioni
 function viewInfo(index) {
+    currentChildIndex = index;
     const child = children[index];
     const infoText = `
         <strong>Nome:</strong> ${child.firstName} <br>
@@ -100,9 +90,42 @@ function closeInfoModal() {
     document.getElementById("info-modal").style.display = "none";
 }
 
-// Funzione per aprire il modale di conferma eliminazione
-let currentChildIndex = -1;
+// Funzione per aprire il modale di modifica
+function openEditModal() {
+    const child = children[currentChildIndex];
+    document.getElementById("edit-first-name").value = child.firstName;
+    document.getElementById("edit-last-name").value = child.lastName;
+    document.getElementById("edit-intolerances").value = child.intolerances;
+    document.getElementById("edit-father-phone").value = child.fatherPhone;
+    document.getElementById("edit-father-password").value = child.fatherPassword;
+    document.getElementById("edit-mother-phone").value = child.motherPhone;
+    document.getElementById("edit-mother-password").value = child.motherPassword;
 
+    document.getElementById("info-modal").style.display = "none";
+    document.getElementById("edit-modal").style.display = "block";
+}
+
+// Funzione per chiudere il modale di modifica
+function closeEditModal() {
+    document.getElementById("edit-modal").style.display = "none";
+}
+
+// Funzione per salvare le modifiche
+function saveChanges() {
+    const child = children[currentChildIndex];
+    child.firstName = document.getElementById("edit-first-name").value;
+    child.lastName = document.getElementById("edit-last-name").value;
+    child.intolerances = document.getElementById("edit-intolerances").value;
+    child.fatherPhone = document.getElementById("edit-father-phone").value;
+    child.fatherPassword = document.getElementById("edit-father-password").value;
+    child.motherPhone = document.getElementById("edit-mother-phone").value;
+    child.motherPassword = document.getElementById("edit-mother-password").value;
+
+    closeEditModal();
+    displayChildren();
+}
+
+// Funzione per aprire il modale di conferma eliminazione
 function openDeleteModal(index) {
     currentChildIndex = index;
     document.getElementById("delete-modal").style.display = "block";
