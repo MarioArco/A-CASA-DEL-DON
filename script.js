@@ -40,8 +40,7 @@ function addChild() {
     const motherPhone = document.getElementById("mother-phone").value;
     const motherPassword = document.getElementById("mother-password").value;
 
-    // Aggiungi un nuovo bambino
-    const child = {
+    const newChild = {
         firstName,
         lastName,
         intolerances,
@@ -52,7 +51,8 @@ function addChild() {
         registrationTime: new Date().toLocaleString()
     };
 
-    children.push(child);
+    // Aggiungi il bambino all'array
+    children.push(newChild);
     displayChildren();
 }
 
@@ -60,6 +60,7 @@ function addChild() {
 function displayChildren() {
     const childrenBody = document.getElementById("registration-body");
     childrenBody.innerHTML = "";
+
     children.forEach((child, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -67,9 +68,7 @@ function displayChildren() {
             <td>${child.lastName}</td>
             <td>${child.intolerances}</td>
             <td>${child.fatherPhone}</td>
-            <td>••••••••</td>
             <td>${child.motherPhone}</td>
-            <td>••••••••</td>
             <td>
                 <button class="key" onclick="openPasswordModal(${index})">🔑</button>
                 <button class="info" onclick="viewInfo(${index})">ℹ️</button>
@@ -80,43 +79,31 @@ function displayChildren() {
     });
 }
 
-// Funzione per aprire il modale delle password
-function openPasswordModal(index) {
-    document.getElementById("password-modal").style.display = "block";
-    currentChildIndex = index;
-}
-
-// Funzione per salvare le password
-function savePasswords() {
-    const fatherPassword = document.getElementById("father-password").value;
-    const motherPassword = document.getElementById("mother-password").value;
-
-    children[currentChildIndex].fatherPassword = fatherPassword;
-    children[currentChildIndex].motherPassword = motherPassword;
-
-    closePasswordModal();
-    displayChildren();
-}
-
-// Funzione per chiudere il modale delle password
-function closePasswordModal() {
-    document.getElementById("password-modal").style.display = "none";
-}
-
-// Funzione per visualizzare le informazioni
+// Funzione per aprire il modale delle informazioni
 function viewInfo(index) {
     const child = children[index];
-    alert(`
-    Nome: ${child.firstName}
-    Cognome: ${child.lastName}
-    Genitori: ${child.fatherPhone} (Padre), ${child.motherPhone} (Madre)
-    Password Padre: ${child.fatherPassword}
-    Password Madre: ${child.motherPassword}
-    Iscritto il: ${child.registrationTime}
-    `);
+    const infoText = `
+        <strong>Nome:</strong> ${child.firstName} <br>
+        <strong>Cognome:</strong> ${child.lastName} <br>
+        <strong>Intolleranze:</strong> ${child.intolerances} <br>
+        <strong>Telefono Padre:</strong> ${child.fatherPhone} <br>
+        <strong>Password Padre:</strong> ${child.fatherPassword} <br>
+        <strong>Telefono Madre:</strong> ${child.motherPhone} <br>
+        <strong>Password Madre:</strong> ${child.motherPassword} <br>
+        <strong>Iscritto il:</strong> ${child.registrationTime}
+    `;
+    document.getElementById("info-text").innerHTML = infoText;
+    document.getElementById("info-modal").style.display = "block";
+}
+
+// Funzione per chiudere il modale delle informazioni
+function closeInfoModal() {
+    document.getElementById("info-modal").style.display = "none";
 }
 
 // Funzione per aprire il modale di conferma eliminazione
+let currentChildIndex = -1;
+
 function openDeleteModal(index) {
     currentChildIndex = index;
     document.getElementById("delete-modal").style.display = "block";
@@ -132,11 +119,4 @@ function confirmDelete() {
 // Funzione per chiudere il modale di conferma eliminazione
 function closeDeleteModal() {
     document.getElementById("delete-modal").style.display = "none";
-}
-
-// Funzione per mostrare o nascondere la password
-function togglePasswordVisibility(elementId) {
-    const passwordInput = document.getElementById(elementId);
-    const type = passwordInput.type === "password" ? "text" : "password";
-    passwordInput.type = type;
 }
