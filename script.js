@@ -6,6 +6,7 @@ const validCredentials = [
 
 // Array per i bambini iscritti
 let children = [];
+let editingChildIndex = -1;
 
 // Funzione di login
 function login() {
@@ -52,7 +53,13 @@ function addChild() {
     };
 
     // Aggiungi il bambino all'array
-    children.push(newChild);
+    if (editingChildIndex === -1) {
+        children.push(newChild);  // Aggiungi un nuovo bambino
+    } else {
+        children[editingChildIndex] = newChild;  // Modifica un bambino esistente
+        editingChildIndex = -1;  // Reset per evitare che venga modificato un altro bambino
+    }
+
     displayChildren();
 }
 
@@ -70,7 +77,6 @@ function displayChildren() {
             <td>${child.fatherPhone}</td>
             <td>${child.motherPhone}</td>
             <td>
-                <button class="edit" onclick="editChild(${index})">Modifica</button>
                 <button class="info" onclick="viewInfo(${index})">ℹ️</button>
                 <button class="trash" onclick="openDeleteModal(${index})">🗑️</button>
             </td>
@@ -101,6 +107,22 @@ function closeInfoModal() {
     document.getElementById("info-modal").style.display = "none";
 }
 
+// Funzione per modificare le informazioni
+function editInfo() {
+    const child = children[editingChildIndex];
+    document.getElementById("first-name").value = child.firstName;
+    document.getElementById("last-name").value = child.lastName;
+    document.getElementById("intolerances").value = child.intolerances;
+    document.getElementById("father-phone").value = child.fatherPhone;
+    document.getElementById("father-password").value = child.fatherPassword;
+    document.getElementById("mother-phone").value = child.motherPhone;
+    document.getElementById("mother-password").value = child.motherPassword;
+
+    document.getElementById("center-section").style.display = "block";
+    document.getElementById("info-modal").style.display = "none";
+    editingChildIndex = child.index;
+}
+
 // Funzione per aprire il modale di conferma eliminazione
 let currentChildIndex = -1;
 
@@ -119,63 +141,4 @@ function confirmDelete() {
 // Funzione per chiudere il modale di conferma eliminazione
 function closeDeleteModal() {
     document.getElementById("delete-modal").style.display = "none";
-}
-
-// Funzione per modificare le informazioni di un bambino
-function editChild(index) {
-    const child = children[index];
-    document.getElementById("first-name").value = child.firstName;
-    document.getElementById("last-name").value = child.lastName;
-    document.getElementById("intolerances").value = child.intolerances;
-    document.getElementById("father-phone").value = child.fatherPhone;
-    document.getElementById("father-password").value = child.fatherPassword;
-    document.getElementById("mother-phone").value = child.motherPhone;
-    document.getElementById("mother-password").value = child.motherPassword;
-
-    // Cambia il bottone per aggiornare le informazioni
-    const addButton = document.querySelector("#registration-form button");
-    addButton.innerText = "Aggiorna Bambino";
-    addButton.setAttribute("onclick", `updateChild(${index})`);
-}
-
-// Funzione per aggiornare le informazioni di un bambino
-function updateChild(index) {
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const intolerances = document.getElementById("intolerances").value;
-    const fatherPhone = document.getElementById("father-phone").value;
-    const fatherPassword = document.getElementById("father-password").value;
-    const motherPhone = document.getElementById("mother-phone").value;
-    const motherPassword = document.getElementById("mother-password").value;
-
-    const updatedChild = {
-        firstName,
-        lastName,
-        intolerances,
-        fatherPhone,
-        fatherPassword,
-        motherPhone,
-        motherPassword,
-        registrationTime: children[index].registrationTime // Mantieni la stessa data di iscrizione
-    };
-
-    children[index] = updatedChild;
-    displayChildren();
-
-    // Resetta il form
-    const addButton = document.querySelector("#registration-form button");
-    addButton.innerText = "Aggiungi Bambino";
-    addButton.setAttribute("onclick", `addChild()`);
-    clearForm();
-}
-
-// Funzione per cancellare i dati del form
-function clearForm() {
-    document.getElementById("first-name").value = "";
-    document.getElementById("last-name").value = "";
-    document.getElementById("intolerances").value = "";
-    document.getElementById("father-phone").value = "";
-    document.getElementById("father-password").value = "";
-    document.getElementById("mother-phone").value = "";
-    document.getElementById("mother-password").value = "";
 }
