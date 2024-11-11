@@ -40,7 +40,8 @@ function addChild() {
     const motherPhone = document.getElementById("mother-phone").value;
     const motherPassword = document.getElementById("mother-password").value;
 
-    const newChild = {
+    // Aggiungi un nuovo bambino
+    const child = {
         firstName,
         lastName,
         intolerances,
@@ -51,8 +52,7 @@ function addChild() {
         registrationTime: new Date().toLocaleString()
     };
 
-    // Aggiungi il bambino all'array
-    children.push(newChild);
+    children.push(child);
     displayChildren();
 }
 
@@ -60,7 +60,6 @@ function addChild() {
 function displayChildren() {
     const childrenBody = document.getElementById("registration-body");
     childrenBody.innerHTML = "";
-
     children.forEach((child, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -68,9 +67,9 @@ function displayChildren() {
             <td>${child.lastName}</td>
             <td>${child.intolerances}</td>
             <td>${child.fatherPhone}</td>
-            <td>${child.fatherPassword}</td>
+            <td>••••••••</td>
             <td>${child.motherPhone}</td>
-            <td>${child.motherPassword}</td>
+            <td>••••••••</td>
             <td>
                 <button class="key" onclick="openPasswordModal(${index})">🔑</button>
                 <button class="info" onclick="viewInfo(${index})">ℹ️</button>
@@ -133,4 +132,11 @@ function confirmDelete() {
 // Funzione per chiudere il modale di conferma eliminazione
 function closeDeleteModal() {
     document.getElementById("delete-modal").style.display = "none";
+}
+
+// Funzione per mostrare o nascondere la password
+function togglePasswordVisibility(elementId) {
+    const passwordInput = document.getElementById(elementId);
+    const type = passwordInput.type === "password" ? "text" : "password";
+    passwordInput.type = type;
 }
