@@ -1,113 +1,117 @@
-// Firebase import e configurazione
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Configurazione Firebase
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAdasW04yrccN5oERBloKm56SiP6jI_I60",
   authDomain: "a-casa-del-don.firebaseapp.com",
-  databaseURL: "https://console.firebase.google.com/u/0/project/a-casa-del-don/database/a-casa-del-don-default-rtdb/data/~2F",
+  databaseURL: "https://a-casa-del-don-default-rtdb.firebaseio.com",
   projectId: "a-casa-del-don",
   storageBucket: "a-casa-del-don.firebasestorage.app",
   messagingSenderId: "96724970919",
-  appId: "1:96724970919:web:4ae17950c8904793a35a82"
+  appId: "1:96724970919:web:4ae17950c8904793a35a82",
   measurementId: "G-QTBGDHV4FX"
 };
 
-// Inizializza Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const analytics = getAnalytics(app);
 
-let members = [];
+// Funzione di login anonimo
+signInAnonymously(auth)
+    .then(() => console.log("Autenticato anonimamente"))
+    .catch((error) => console.error("Errore di autenticazione:", error));
 
-// Accesso con password
-document.getElementById("login-button").onclick = function() {
-  const passwordInput = document.getElementById("password").value;
-  const errorMessage = document.getElementById("error-message");
+// Funzione per registrare un bambino
+async function registerMember() {
+    const name = document.getElementById("name").value;
+    const intolerances = document.getElementById("intolerances").value;
+    const phone = document.getElementById("phone").value;
 
-  if (passwordInput === "tua_password") {
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("content-section").style.display = "block";
-    loadMembers();
-  } else {
-    errorMessage.innerText = "Password errata. Riprova.";
-  }
-};
+    try {
+        // Aggiunge un documento alla collezione "bambini"
+        await addDoc(collection(db, "bambini"), {
+            nome: name,
+            intolleranze: intolerances,
+            telefono: phone,
+            dataIscrizione: new Date().toLocaleString()
+        });
+        alert("Bambino registrato con successo!");
+        displayMembers(); // aggiorna l'elenco
+    } catch (error) {
+        console.error("Errore durante la registrazione:", error);
+    }
+}
 
-// Carica i membri dal database Firebase
-function loadMembers() {
-  const membersRef = ref(database, 'members/');
-  onValue(membersRef, (snapshot) => {
-    members = [];
-    snapshot.forEach((childSnapshot) => {
-      const childData = childSnapshot.val();
-      members.push({ ...childData, key: childSnapshot.key });
+// Funzione per visualizzare tutti i bambini registrati
+async function displayMembers() {
+    const membersBody = document.getElementById("members-body");
+    membersBody.innerHTML = ""; // Svuota la tabella prima di riempirla
+
+    const querySnapshot = await getDocs(collection(db, "bambini"));
+    querySnapshot.forEach((doc) => {
+        const member = doc.data();
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${member.nome}</td>
+            <td>${member.intolleranze}</td>
+            <td>${member.telefono}</td>
+            <td>${member.dataIscrizione}</td>
+        `;
+        membersBody.appendChild(row);
     });
-    displayMembers();
-  });
 }
 
-// Funzione di registrazione in sequenza
-function startRegistration() {
-  registerNextMember();
+// Chiama displayMembers all'avvio per caricare i bambini già registrati
+window.onload = displayMembers;
+
+signInAnonymously(auth)
+    .then(() => console.log("Autenticato anonimamente"))
+    .catch((error) => console.error("Errore di autenticazione:", error));
+
+// Funzione per registrare un bambino
+async function registerMember() {
+    const name = document.getElementById("name").value;
+    const intolerances = document.getElementById("intolerances").value;
+    const phone = document.getElementById("phone").value;
+
+    try {
+        // Aggiunge un documento alla collezione "bambini"
+        await addDoc(collection(db, "bambini"), {
+            nome: name,
+            intolleranze: intolerances,
+            telefono: phone,
+            dataIscrizione: new Date().toLocaleString()
+        });
+        alert("Bambino registrato con successo!");
+        displayMembers(); // aggiorna l'elenco
+    } catch (error) {
+        console.error("Errore durante la registrazione:", error);
+    }
 }
 
-// Funzione per registrare un nuovo membro
-function registerNextMember() {
-  const name = prompt("Nome:");
-  if (!name) return;
-  const intolerances = prompt("Intolleranze:");
-  const phone = prompt("Telefono:");
+// Funzione per visualizzare tutti i bambini registrati
+async function displayMembers() {
+    const membersBody = document.getElementById("members-body");
+    membersBody.innerHTML = ""; // Svuota la tabella prima di riempirla
 
-  const newMember = {
-    nome: name,
-    intolleranze: intolerances,
-    telefono: phone,
-    dataIscrizione: new Date().toLocaleString()
-  };
-
-  const membersRef = ref(database, 'members/');
-  push(membersRef, newMember);
+    const querySnapshot = await getDocs(collection(db, "bambini"));
+    querySnapshot.forEach((doc) => {
+        const member = doc.data();
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${member.nome}</td>
+            <td>${member.intolleranze}</td>
+            <td>${member.telefono}</td>
+            <td>${member.dataIscrizione}</td>
+        `;
+        membersBody.appendChild(row);
+    });
 }
 
-// Visualizza i membri in tabella
-function displayMembers() {
-  const membersBody = document.getElementById("members-body");
-  membersBody.innerHTML = "";
-
-  members.forEach((member) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${member.nome}</td>
-      <td>${member.intolleranze}</td>
-      <td>${member.telefono}</td>
-      <td>
-        <button onclick="showInfo('${member.key}')">Info</button>
-        <button onclick="deleteMember('${member.key}')">Elimina</button>
-      </td>`;
-    membersBody.appendChild(row);
-  });
-}
-
-// Elimina un membro
-function deleteMember(key) {
-  const memberRef = ref(database, `members/${key}`);
-  remove(memberRef).then(() => loadMembers());
-}
-
-// Mostra le informazioni del membro
-function showInfo(key) {
-  const member = members.find(m => m.key === key);
-  const infoDetails = document.getElementById("info-details");
-  infoDetails.innerHTML = `
-    <strong>Nome:</strong> ${member.nome}<br>
-    <strong>Intolleranze:</strong> ${member.intolleranze}<br>
-    <strong>Telefono:</strong> ${member.telefono}<br>
-    <strong>Data di Iscrizione:</strong> ${member.dataIscrizione}`;
-  document.getElementById("info-modal").style.display = "block";
-}
-
-// Chiudi il modale
-function closeModal() {
-  document.getElementById("info-modal").style.display = "none";
-}
+// Chiama displayMembers all'avvio per caricare i bambini già registrati
+window.onload = displayMembers;
