@@ -6,7 +6,6 @@ const validCredentials = [
 
 // Array per i bambini iscritti
 let children = [];
-let editingChildIndex = -1;
 
 // Funzione di login
 function login() {
@@ -53,13 +52,7 @@ function addChild() {
     };
 
     // Aggiungi il bambino all'array
-    if (editingChildIndex === -1) {
-        children.push(newChild);  // Aggiungi un nuovo bambino
-    } else {
-        children[editingChildIndex] = newChild;  // Modifica un bambino esistente
-        editingChildIndex = -1;  // Reset per evitare che venga modificato un altro bambino
-    }
-
+    children.push(newChild);
     displayChildren();
 }
 
@@ -107,22 +100,6 @@ function closeInfoModal() {
     document.getElementById("info-modal").style.display = "none";
 }
 
-// Funzione per modificare le informazioni
-function editInfo() {
-    const child = children[editingChildIndex];
-    document.getElementById("first-name").value = child.firstName;
-    document.getElementById("last-name").value = child.lastName;
-    document.getElementById("intolerances").value = child.intolerances;
-    document.getElementById("father-phone").value = child.fatherPhone;
-    document.getElementById("father-password").value = child.fatherPassword;
-    document.getElementById("mother-phone").value = child.motherPhone;
-    document.getElementById("mother-password").value = child.motherPassword;
-
-    document.getElementById("center-section").style.display = "block";
-    document.getElementById("info-modal").style.display = "none";
-    editingChildIndex = child.index;
-}
-
 // Funzione per aprire il modale di conferma eliminazione
 let currentChildIndex = -1;
 
@@ -142,4 +119,3 @@ function confirmDelete() {
 function closeDeleteModal() {
     document.getElementById("delete-modal").style.display = "none";
 }
-
