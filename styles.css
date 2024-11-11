@@ -87,6 +87,15 @@ td {
     color: #3498db;
 }
 
+.eye-icon {
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: -30px;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+}
+
 #password-modal, #delete-modal {
     position: fixed;
     top: 50%;
