@@ -69,14 +69,15 @@ function displayChildren() {
 
 // Funzione per aprire il modale delle informazioni
 function viewInfo(index) {
-    currentChildIndex = index;
     const child = children[index];
     const infoText = `
         <strong>Nome:</strong> ${child.firstName} <br>
         <strong>Cognome:</strong> ${child.lastName} <br>
         <strong>Intolleranze:</strong> ${child.intolerances} <br>
         <strong>Telefono Padre:</strong> ${child.fatherPhone} <br>
+        <strong>Password Padre:</strong> ${child.fatherPassword} <br>
         <strong>Telefono Madre:</strong> ${child.motherPhone} <br>
+        <strong>Password Madre:</strong> ${child.motherPassword} <br>
         <strong>Iscritto il:</strong> ${child.registrationTime}
     `;
     document.getElementById("info-text").innerHTML = infoText;
@@ -86,41 +87,6 @@ function viewInfo(index) {
 // Funzione per chiudere il modale delle informazioni
 function closeInfoModal() {
     document.getElementById("info-modal").style.display = "none";
-}
-
-// Funzione per aprire il modale di modifica
-function openEditModal() {
-    const child = children[currentChildIndex];
-    document.getElementById("edit-first-name").value = child.firstName;
-    document.getElementById("edit-last-name").value = child.lastName;
-    document.getElementById("edit-intolerances").value = child.intolerances;
-    document.getElementById("edit-father-phone").value = child.fatherPhone;
-    document.getElementById("edit-father-password").value = child.fatherPassword;
-    document.getElementById("edit-mother-phone").value = child.motherPhone;
-    document.getElementById("edit-mother-password").value = child.motherPassword;
-
-    document.getElementById("info-modal").style.display = "none";
-    document.getElementById("edit-modal").style.display = "block";
-}
-
-// Funzione per chiudere il modale di modifica
-function closeEditModal() {
-    document.getElementById("edit-modal").style.display = "none";
-}
-
-// Funzione per salvare le modifiche
-function saveChanges() {
-    const child = children[currentChildIndex];
-    child.firstName = document.getElementById("edit-first-name").value;
-    child.lastName = document.getElementById("edit-last-name").value;
-    child.intolerances = document.getElementById("edit-intolerances").value;
-    child.fatherPhone = document.getElementById("edit-father-phone").value;
-    child.fatherPassword = document.getElementById("edit-father-password").value;
-    child.motherPhone = document.getElementById("edit-mother-phone").value;
-    child.motherPassword = document.getElementById("edit-mother-password").value;
-
-    closeEditModal();
-    displayChildren();
 }
 
 // Funzione per aprire il modale di conferma eliminazione
