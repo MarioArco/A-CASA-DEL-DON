@@ -5,49 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A CASA DEL DON</title>
     <link rel="stylesheet" href="styles.css"> <!-- Collega il CSS -->
+    <script type="module" src="script.js"></script> <!-- Collega il JavaScript -->
 </head>
 <body>
     <div class="container">
         <h1>A CASA DEL DON</h1>
 
-        <!-- Sezione di accesso -->
-        <div id="login-section">
-            <h2>Accesso</h2>
-            <input type="password" id="password" placeholder="Inserisci la password" />
-            <button id="login-button">Accedi</button>
-            <div id="error-message" class="error"></div>
+        <div id="registration-section">
+            <h2>Iscrizione</h2>
+            <input type="text" id="name" placeholder="Nome" required />
+            <input type="text" id="intolerances" placeholder="Intolleranze" />
+            <input type="text" id="phone" placeholder="Telefono" required />
+            <button onclick="registerMember()">Registrati</button>
         </div>
 
-        <!-- Sezione di gestione degli iscritti -->
-        <div id="content-section" style="display: none;">
-            <button onclick="startRegistration()">Inizia Registrazione</button>
-            <div id="members-table-container">
-                <table id="members-table">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Intolleranze</th>
-                            <th>Telefono</th>
-                            <th>Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody id="members-body"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Modale per informazioni -->
-        <div id="info-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Informazioni Iscritto</h2>
-                <div id="info-details"></div>
-            </div>
+        <div id="members-table-container">
+            <h2>Elenco Bambini</h2>
+            <table id="members-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Intolleranze</th>
+                        <th>Telefono</th>
+                        <th>Data di Iscrizione</th>
+                    </tr>
+                </thead>
+                <tbody id="members-body"></tbody>
+            </table>
         </div>
     </div>
-
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script src="script.js"></script> <!-- Collega il JavaScript -->
 </body>
 </html>
