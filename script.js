@@ -36,16 +36,18 @@ function addChild() {
     const lastName = document.getElementById("last-name").value;
     const intolerances = document.getElementById("intolerances").value;
     const fatherPhone = document.getElementById("father-phone").value;
+    const fatherPassword = document.getElementById("father-password").value;
     const motherPhone = document.getElementById("mother-phone").value;
+    const motherPassword = document.getElementById("mother-password").value;
 
     const newChild = {
         firstName,
         lastName,
         intolerances,
         fatherPhone,
+        fatherPassword,
         motherPhone,
-        fatherPassword: "",
-        motherPassword: "",
+        motherPassword,
         registrationTime: new Date().toLocaleString()
     };
 
@@ -66,7 +68,9 @@ function displayChildren() {
             <td>${child.lastName}</td>
             <td>${child.intolerances}</td>
             <td>${child.fatherPhone}</td>
+            <td>${child.fatherPassword}</td>
             <td>${child.motherPhone}</td>
+            <td>${child.motherPassword}</td>
             <td>
                 <button class="key" onclick="openPasswordModal(${index})">🔑</button>
                 <button class="info" onclick="viewInfo(${index})">ℹ️</button>
