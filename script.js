@@ -142,3 +142,4 @@ function confirmDelete() {
 function closeDeleteModal() {
     document.getElementById("delete-modal").style.display = "none";
 }
+
