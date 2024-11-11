@@ -51,8 +51,10 @@
                 <input type="text" id="intolerances" placeholder="Intolleranze" />
                 <input type="text" id="father-phone" placeholder="Telefono Padre" required />
                 <input type="password" id="father-password" placeholder="Password Padre" required />
+                <span class="eye-icon" onclick="togglePasswordVisibility('father-password')">👁️</span>
                 <input type="text" id="mother-phone" placeholder="Telefono Madre" required />
                 <input type="password" id="mother-password" placeholder="Password Madre" required />
+                <span class="eye-icon" onclick="togglePasswordVisibility('mother-password')">👁️</span>
                 <button onclick="addChild()">Aggiungi Bambino</button>
             </div>
         </div>
@@ -63,9 +65,11 @@
         <h3>Modifica Password</h3>
         <label for="father-password">Password Padre:</label>
         <input type="password" id="father-password" placeholder="Password Padre" />
+        <span class="eye-icon" onclick="togglePasswordVisibility('father-password')">👁️</span>
         <br />
         <label for="mother-password">Password Madre:</label>
         <input type="password" id="mother-password" placeholder="Password Madre" />
+        <span class="eye-icon" onclick="togglePasswordVisibility('mother-password')">👁️</span>
         <br />
         <button onclick="savePasswords()">Salva Password</button>
         <button onclick="closePasswordModal()">Annulla</button>
