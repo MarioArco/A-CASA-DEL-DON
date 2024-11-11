@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Ricreativo</title>
+    <title>A CASA DEL DON</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Centro Ricreativo</h1>
+        <h1>A CASA DEL DON</h1>
 
         <!-- Login Section -->
         <div id="login-section">
@@ -24,9 +24,9 @@
             <h2>Benvenuto!</h2>
         </div>
 
-        <!-- Centro Ricreativo -->
+        <!-- A CASA DEL DON -->
         <div id="center-section" style="display:none;">
-            <h2>Gestione Centro Ricreativo</h2>
+            <h2>Gestione A CASA DEL DON</h2>
             <table id="registration-table">
                 <thead>
                     <tr>
@@ -34,7 +34,9 @@
                         <th>Cognome</th>
                         <th>Intolleranze</th>
                         <th>Telefono Padre</th>
+                        <th>Password Padre</th>
                         <th>Telefono Madre</th>
+                        <th>Password Madre</th>
                         <th>Azioni</th>
                     </tr>
                 </thead>
@@ -48,7 +50,9 @@
                 <input type="text" id="last-name" placeholder="Cognome" required />
                 <input type="text" id="intolerances" placeholder="Intolleranze" />
                 <input type="text" id="father-phone" placeholder="Telefono Padre" required />
+                <input type="password" id="father-password" placeholder="Password Padre" required />
                 <input type="text" id="mother-phone" placeholder="Telefono Madre" required />
+                <input type="password" id="mother-password" placeholder="Password Madre" required />
                 <button onclick="addChild()">Aggiungi Bambino</button>
             </div>
         </div>
