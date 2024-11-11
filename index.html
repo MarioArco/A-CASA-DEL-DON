@@ -34,9 +34,7 @@
                         <th>Cognome</th>
                         <th>Intolleranze</th>
                         <th>Telefono Padre</th>
-                        <th>Password Padre</th>
                         <th>Telefono Madre</th>
-                        <th>Password Madre</th>
                         <th>Azioni</th>
                     </tr>
                 </thead>
@@ -51,28 +49,18 @@
                 <input type="text" id="intolerances" placeholder="Intolleranze" />
                 <input type="text" id="father-phone" placeholder="Telefono Padre" required />
                 <input type="password" id="father-password" placeholder="Password Padre" required />
-                <span class="eye-icon" onclick="togglePasswordVisibility('father-password')">👁️</span>
                 <input type="text" id="mother-phone" placeholder="Telefono Madre" required />
                 <input type="password" id="mother-password" placeholder="Password Madre" required />
-                <span class="eye-icon" onclick="togglePasswordVisibility('mother-password')">👁️</span>
                 <button onclick="addChild()">Aggiungi Bambino</button>
             </div>
         </div>
     </div>
 
-    <!-- Modale per le password -->
-    <div id="password-modal" style="display:none;">
-        <h3>Modifica Password</h3>
-        <label for="father-password">Password Padre:</label>
-        <input type="password" id="father-password" placeholder="Password Padre" />
-        <span class="eye-icon" onclick="togglePasswordVisibility('father-password')">👁️</span>
-        <br />
-        <label for="mother-password">Password Madre:</label>
-        <input type="password" id="mother-password" placeholder="Password Madre" />
-        <span class="eye-icon" onclick="togglePasswordVisibility('mother-password')">👁️</span>
-        <br />
-        <button onclick="savePasswords()">Salva Password</button>
-        <button onclick="closePasswordModal()">Annulla</button>
+    <!-- Modale per le informazioni -->
+    <div id="info-modal" style="display:none;">
+        <h3>Informazioni Bambino</h3>
+        <p id="info-text"></p>
+        <button onclick="closeInfoModal()">Chiudi</button>
     </div>
 
     <!-- Modale per conferma eliminazione -->
