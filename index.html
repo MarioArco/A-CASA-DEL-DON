@@ -10,7 +10,7 @@
     <div class="container">
         <h1>A CASA DEL DON</h1>
 
-        <!-- Sezione di accesso -->
+        <!-- Sezione di login -->
         <div id="login-section">
             <h2>Accedi</h2>
             <input type="text" id="phone" placeholder="Numero di telefono" />
@@ -19,17 +19,16 @@
             <div id="error-message" class="error"></div>
         </div>
 
-        <!-- Sezione di gestione degli iscritti -->
+        <!-- Sezione gestione iscrizioni -->
         <div id="content-section" style="display: none;">
-            <h2>Gestione Iscrizioni</h2>
             <button onclick="openRegistration()">Iscrivi un bambino</button>
-            <button id="show-info">Info</button>
             <div id="members-table-container">
                 <table id="members-table">
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Cognome</th>
+                            <th>Intolleranze</th>
                             <th>Telefono Padre</th>
                             <th>Telefono Madre</th>
                             <th>Azioni</th>
@@ -38,27 +37,23 @@
                     <tbody id="members-body"></tbody>
                 </table>
             </div>
-        </div>
-
-        <!-- Modale per informazioni -->
-        <div id="info-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Informazioni Bambino</h2>
-                <div id="info-details"></div>
-            </div>
-        </div>
-
-        <!-- Modale per modificare -->
-        <div id="edit-modal" class="modal">
-            <div class="modal-content">
+            <!-- Modale per la modifica -->
+            <div id="edit-modal" style="display:none;">
                 <h3>Modifica Bambino</h3>
                 <input type="text" id="edit-name" placeholder="Nome" />
                 <input type="text" id="edit-surname" placeholder="Cognome" />
+                <input type="text" id="edit-intolerances" placeholder="Intolleranze" />
                 <input type="text" id="edit-phone-father" placeholder="Telefono Padre" />
                 <input type="text" id="edit-phone-mother" placeholder="Telefono Madre" />
                 <button onclick="saveChanges()">Salva</button>
                 <button onclick="closeEditModal()">Annulla</button>
+            </div>
+            <!-- Modale per visualizzare informazioni -->
+            <div id="info-modal" style="display:none;">
+                <span onclick="closeModal()" class="close">&times;</span>
+                <h2>Informazioni Iscritto</h2>
+                <div id="info-details"></div>
+                <button onclick="openEditModal()">Modifica</button>
             </div>
         </div>
     </div>
