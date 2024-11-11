@@ -74,3 +74,43 @@ td {
 #registration-form {
     margin-top: 20px;
 }
+
+#registration-table button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#registration-table .key, #registration-table .info, #registration-table .trash {
+    font-size: 20px;
+    color: #3498db;
+}
+
+#password-modal, #delete-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#password-modal input, #delete-modal button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+#delete-modal button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#delete-modal button:hover {
+    background-color: #c0392b;
+}
