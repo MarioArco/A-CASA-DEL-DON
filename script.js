@@ -76,9 +76,7 @@ function viewInfo(index) {
         <strong>Cognome:</strong> ${child.lastName} <br>
         <strong>Intolleranze:</strong> ${child.intolerances} <br>
         <strong>Telefono Padre:</strong> ${child.fatherPhone} <br>
-        <strong>Password Padre:</strong> ${child.fatherPassword} <br>
         <strong>Telefono Madre:</strong> ${child.motherPhone} <br>
-        <strong>Password Madre:</strong> ${child.motherPassword} <br>
         <strong>Iscritto il:</strong> ${child.registrationTime}
     `;
     document.getElementById("info-text").innerHTML = infoText;
