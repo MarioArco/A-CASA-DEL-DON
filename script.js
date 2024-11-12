@@ -28,9 +28,20 @@ function registerChild() {
     const surname = document.getElementById("child-surname").value;
     const intolerances = document.getElementById("intolerances").value;
     const fatherPhone = document.getElementById("father-phone").value;
+    const fatherPassword = document.getElementById("father-password").value;
     const motherPhone = document.getElementById("mother-phone").value;
+    const motherPassword = document.getElementById("mother-password").value;
 
-    const child = { name, surname, intolerances, fatherPhone, motherPhone, registrationDate: new Date().toLocaleString() };
+    const child = { 
+        name, 
+        surname, 
+        intolerances, 
+        fatherPhone, 
+        motherPhone, 
+        fatherPassword, 
+        motherPassword, 
+        registrationDate: new Date().toLocaleString() 
+    };
     children.push(child);
     displayChildren();
     closeRegistrationForm();
@@ -66,6 +77,8 @@ function showInfo(index) {
         <p><strong>Intolleranze:</strong> ${child.intolerances}</p>
         <p><strong>Telefono Padre:</strong> ${child.fatherPhone}</p>
         <p><strong>Telefono Madre:</strong> ${child.motherPhone}</p>
+        <p><strong>Password Padre:</strong> ${child.fatherPassword}</p>
+        <p><strong>Password Madre:</strong> ${child.motherPassword}</p>
         <p><strong>Data Iscrizione:</strong> ${child.registrationDate}</p>
     `;
     document.getElementById("info-modal").style.display = "block";
