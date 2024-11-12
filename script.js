@@ -70,7 +70,6 @@ function displayChildren() {
             <td>${child.fatherPhone}</td>
             <td>${child.motherPhone}</td>
             <td>
-                <button class="key" onclick="openPasswordModal(${index})">🔑</button>
                 <button class="info" onclick="viewInfo(${index})">ℹ️</button>
                 <button class="trash" onclick="openDeleteModal(${index})">🗑️</button>
             </td>
