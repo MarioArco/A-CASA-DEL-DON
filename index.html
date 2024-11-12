@@ -8,19 +8,31 @@
 </head>
 <body>
     <div class="container">
-        <h1>A CASA DEL DON</h1>
-        
-        <!-- Form di accesso -->
+        <h1>Centro A CASA DEL DON</h1>
+
+        <!-- Sezione login -->
         <div id="login-section">
-            <input type="tel" id="phone" placeholder="Numero di telefono" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button onclick="checkAccess()">Accedi</button>
-            <div id="error-message" class="error"></div>
+            <input type="tel" id="phone" placeholder="Numero di telefono">
+            <input type="password" id="password" placeholder="Password">
+            <button id="login-button">Accedi</button>
+            <p id="error-message" class="error"></p>
         </div>
-        
-        <!-- Sezione principale -->
-        <div id="center-section" style="display: none;">
-            <table id="children-table">
+
+        <!-- Sezione contenuti -->
+        <div id="content-section" style="display:none;">
+            <h2>Iscrivi un nuovo bambino</h2>
+            <div id="registration-form">
+                <input type="text" id="name" placeholder="Nome">
+                <input type="text" id="surname" placeholder="Cognome">
+                <input type="text" id="intolerances" placeholder="Intolleranze">
+                <input type="tel" id="fatherPhone" placeholder="Telefono Padre">
+                <input type="password" id="fatherPassword" placeholder="Password Padre">
+                <input type="tel" id="motherPhone" placeholder="Telefono Madre">
+                <input type="password" id="motherPassword" placeholder="Password Madre">
+                <button onclick="registerChild()">Iscrivi Bambino</button>
+            </div>
+
+            <table>
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -28,36 +40,23 @@
                         <th>Intolleranze</th>
                         <th>Telefono Padre</th>
                         <th>Telefono Madre</th>
+                        <th>Data Iscrizione</th>
                         <th>Azioni</th>
                     </tr>
                 </thead>
-                <tbody id="children-body"></tbody>
+                <tbody id="children-table"></tbody>
             </table>
-            <button onclick="openRegistrationForm()">Nuova Iscrizione</button>
+        </div>
 
-            <!-- Modale informazioni -->
-            <div id="info-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <h2>Informazioni Iscritto</h2>
-                    <div id="info-details"></div>
-                </div>
+        <!-- Modale per le informazioni -->
+        <div id="info-modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="info-details"></div>
             </div>
         </div>
-        
-        <!-- Form di registrazione -->
-        <div id="registration-form" style="display: none;">
-            <input type="text" id="child-name" placeholder="Nome" required>
-            <input type="text" id="child-surname" placeholder="Cognome" required>
-            <input type="text" id="intolerances" placeholder="Intolleranze">
-            <input type="tel" id="father-phone" placeholder="Telefono Padre" required>
-            <input type="password" id="father-password" placeholder="Password Padre" required>
-            <input type="tel" id="mother-phone" placeholder="Telefono Madre" required>
-            <input type="password" id="mother-password" placeholder="Password Madre" required>
-            <button onclick="registerChild()">Registra</button>
-            <button onclick="closeRegistrationForm()">Annulla</button>
-        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
