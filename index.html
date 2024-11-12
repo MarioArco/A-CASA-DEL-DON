@@ -6,29 +6,21 @@
     <title>A CASA DEL DON</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-    <link rel="stylesheet" href="styles.css">
 <body>
     <div class="container">
         <h1>A CASA DEL DON</h1>
-
-        <!-- Login Section -->
+        
+        <!-- Form di accesso -->
         <div id="login-section">
-            <h2>Login</h2>
-            <input type="text" id="phone" placeholder="Numero di telefono" required />
-            <input type="password" id="password" placeholder="Password" required />
-            <button onclick="login()">Accedi</button>
+            <input type="tel" id="phone" placeholder="Numero di telefono" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button onclick="checkAccess()">Accedi</button>
             <div id="error-message" class="error"></div>
         </div>
-
-        <!-- Benvenuto Message -->
-        <div id="welcome-section" style="display:none;">
-            <h2>Benvenuto!</h2>
-        </div>
-
-        <!-- A CASA DEL DON Section -->
-        <div id="center-section" style="display:none;">
-            <h2>Gestione A CASA DEL DON</h2>
-            <table id="registration-table">
+        
+        <!-- Sezione principale -->
+        <div id="center-section" style="display: none;">
+            <table id="children-table">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -39,33 +31,31 @@
                         <th>Azioni</th>
                     </tr>
                 </thead>
-                <tbody id="registration-body"></tbody>
+                <tbody id="children-body"></tbody>
             </table>
+            <button onclick="openRegistrationForm()">Nuova Iscrizione</button>
 
-            <!-- Modulo di iscrizione -->
-            <div id="registration-form">
-                <h3>Iscrizione Nuovo Bambino</h3>
-                <input type="text" id="first-name" placeholder="Nome" required />
-                <input type="text" id="last-name" placeholder="Cognome" required />
-                <input type="text" id="intolerances" placeholder="Intolleranze" />
-                <input type="text" id="father-phone" placeholder="Telefono Padre" required />
-                <input type="password" id="father-password" placeholder="Password Padre" required />
-                <input type="text" id="mother-phone" placeholder="Telefono Madre" required />
-                <input type="password" id="mother-password" placeholder="Password Madre" required />
-                <button onclick="addChild()">Aggiungi Bambino</button>
+            <!-- Modale informazioni -->
+            <div id="info-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Informazioni Iscritto</h2>
+                    <div id="info-details"></div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modale per conferma eliminazione -->
-    <div id="delete-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <p>Sei sicuro di voler eliminare questo bambino?</p>
-            <button onclick="confirmDelete()">Conferma</button>
-            <button onclick="closeDeleteModal()">Annulla</button>
+        
+        <!-- Form di registrazione -->
+        <div id="registration-form" style="display: none;">
+            <input type="text" id="child-name" placeholder="Nome" required>
+            <input type="text" id="child-surname" placeholder="Cognome" required>
+            <input type="text" id="intolerances" placeholder="Intolleranze">
+            <input type="tel" id="father-phone" placeholder="Telefono Padre" required>
+            <input type="tel" id="mother-phone" placeholder="Telefono Madre" required>
+            <button onclick="registerChild()">Registra</button>
+            <button onclick="closeRegistrationForm()">Annulla</button>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
