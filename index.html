@@ -57,23 +57,27 @@
     </div>
 
     <!-- Modale per le password -->
-    <div id="password-modal" style="display:none;">
-        <h3>Modifica Password</h3>
-        <label for="father-password">Password Padre:</label>
-        <input type="password" id="father-password" placeholder="Password Padre" />
-        <br />
-        <label for="mother-password">Password Madre:</label>
-        <input type="password" id="mother-password" placeholder="Password Madre" />
-        <br />
-        <button onclick="savePasswords()">Salva Password</button>
-        <button onclick="closePasswordModal()">Annulla</button>
+    <div id="password-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Modifica Password</h3>
+            <label for="father-password">Password Padre:</label>
+            <input type="password" id="father-password" placeholder="Password Padre" />
+            <br />
+            <label for="mother-password">Password Madre:</label>
+            <input type="password" id="mother-password" placeholder="Password Madre" />
+            <br />
+            <button onclick="savePasswords()">Salva Password</button>
+            <button onclick="closePasswordModal()">Annulla</button>
+        </div>
     </div>
 
     <!-- Modale per conferma eliminazione -->
-    <div id="delete-modal" style="display:none;">
-        <p>Sei sicuro di voler eliminare questo bambino?</p>
-        <button onclick="confirmDelete()">Conferma</button>
-        <button onclick="closeDeleteModal()">Annulla</button>
+    <div id="delete-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <p>Sei sicuro di voler eliminare questo bambino?</p>
+            <button onclick="confirmDelete()">Conferma</button>
+            <button onclick="closeDeleteModal()">Annulla</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
