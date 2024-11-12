@@ -10,7 +10,7 @@
     <div class="container">
         <h1>A CASA DEL DON</h1>
 
-        <!-- Sezione di login -->
+        <!-- Login Section -->
         <div id="login-section">
             <h2>Login</h2>
             <input type="text" id="phone" placeholder="Numero di telefono" required />
@@ -19,12 +19,12 @@
             <div id="error-message" class="error"></div>
         </div>
 
-        <!-- Sezione di benvenuto -->
+        <!-- Benvenuto Message -->
         <div id="welcome-section" style="display:none;">
             <h2>Benvenuto!</h2>
         </div>
 
-        <!-- Sezione di gestione del centro "A CASA DEL DON" -->
+        <!-- A CASA DEL DON -->
         <div id="center-section" style="display:none;">
             <h2>Gestione A CASA DEL DON</h2>
             <table id="registration-table">
@@ -34,14 +34,16 @@
                         <th>Cognome</th>
                         <th>Intolleranze</th>
                         <th>Telefono Padre</th>
+                        <th>Password Padre</th>
                         <th>Telefono Madre</th>
+                        <th>Password Madre</th>
                         <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody id="registration-body"></tbody>
             </table>
 
-            <!-- Modulo per l'iscrizione -->
+            <!-- Modulo di iscrizione -->
             <div id="registration-form">
                 <h3>Iscrizione Nuovo Bambino</h3>
                 <input type="text" id="first-name" placeholder="Nome" required />
@@ -56,11 +58,17 @@
         </div>
     </div>
 
-    <!-- Modale per le informazioni -->
-    <div id="info-modal" style="display:none;">
-        <h3>Informazioni Bambino</h3>
-        <p id="info-text"></p>
-        <button onclick="closeInfoModal()">Chiudi</button>
+    <!-- Modale per le password -->
+    <div id="password-modal" style="display:none;">
+        <h3>Modifica Password</h3>
+        <label for="father-password">Password Padre:</label>
+        <input type="password" id="father-password" placeholder="Password Padre" />
+        <br />
+        <label for="mother-password">Password Madre:</label>
+        <input type="password" id="mother-password" placeholder="Password Madre" />
+        <br />
+        <button onclick="savePasswords()">Salva Password</button>
+        <button onclick="closePasswordModal()">Annulla</button>
     </div>
 
     <!-- Modale per conferma eliminazione -->
