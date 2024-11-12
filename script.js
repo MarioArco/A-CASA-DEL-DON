@@ -24,14 +24,26 @@ function closeRegistrationForm() {
 
 // Funzione per registrare un bambino
 function registerChild() {
+    // Ottieni i valori dal modulo
     const name = document.getElementById("child-name").value;
     const surname = document.getElementById("child-surname").value;
     const intolerances = document.getElementById("intolerances").value;
     const fatherPhone = document.getElementById("father-phone").value;
-    const fatherPassword = document.getElementById("father-password").value;
     const motherPhone = document.getElementById("mother-phone").value;
+    const fatherPassword = document.getElementById("father-password").value;
     const motherPassword = document.getElementById("mother-password").value;
 
+    // Verifica che la password sia obbligatoria solo se il telefono del genitore è stato inserito
+    if (fatherPhone && !fatherPassword) {
+        alert("La password del padre è obbligatoria!");
+        return;
+    }
+    if (motherPhone && !motherPassword) {
+        alert("La password della madre è obbligatoria!");
+        return;
+    }
+
+    // Crea l'oggetto del bambino
     const child = { 
         name, 
         surname, 
@@ -42,8 +54,14 @@ function registerChild() {
         motherPassword, 
         registrationDate: new Date().toLocaleString() 
     };
+    
+    // Aggiungi il bambino all'array
     children.push(child);
+
+    // Mostra i bambini registrati
     displayChildren();
+
+    // Chiudi il modulo di registrazione
     closeRegistrationForm();
 }
 
