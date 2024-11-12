@@ -68,9 +68,7 @@ function displayChildren() {
             <td>${child.lastName}</td>
             <td>${child.intolerances}</td>
             <td>${child.fatherPhone}</td>
-            <td>${child.fatherPassword}</td>
             <td>${child.motherPhone}</td>
-            <td>${child.motherPassword}</td>
             <td>
                 <button class="key" onclick="openPasswordModal(${index})">🔑</button>
                 <button class="info" onclick="viewInfo(${index})">ℹ️</button>
@@ -110,7 +108,9 @@ function viewInfo(index) {
     alert(`
     Nome: ${child.firstName}
     Cognome: ${child.lastName}
-    Genitori: ${child.fatherPhone} (Padre), ${child.motherPhone} (Madre)
+    Intolleranze: ${child.intolerances}
+    Telefono Padre: ${child.fatherPhone}
+    Telefono Madre: ${child.motherPhone}
     Password Padre: ${child.fatherPassword}
     Password Madre: ${child.motherPassword}
     Iscritto il: ${child.registrationTime}
@@ -134,3 +134,4 @@ function confirmDelete() {
 function closeDeleteModal() {
     document.getElementById("delete-modal").style.display = "none";
 }
+
