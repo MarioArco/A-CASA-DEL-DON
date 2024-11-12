@@ -6,7 +6,6 @@ const validCredentials = [
 
 // Array per i bambini iscritti
 let children = [];
-let currentChildIndex = -1;
 
 // Funzione di login
 function login() {
@@ -17,7 +16,10 @@ function login() {
     const user = validCredentials.find(u => u.phone === phone && u.password === password);
 
     if (user) {
+        // Nascondi la sezione di login
         document.getElementById("login-section").style.display = "none";
+
+        // Mostra la sezione appropriata
         if (user.accessLevel === "welcome") {
             document.getElementById("welcome-section").style.display = "block";
         } else if (user.accessLevel === "center") {
@@ -30,17 +32,26 @@ function login() {
 
 // Funzione per aggiungere un bambino
 function addChild() {
+    const firstName = document.getElementById("first-name").value;
+    const lastName = document.getElementById("last-name").value;
+    const intolerances = document.getElementById("intolerances").value;
+    const fatherPhone = document.getElementById("father-phone").value;
+    const fatherPassword = document.getElementById("father-password").value;
+    const motherPhone = document.getElementById("mother-phone").value;
+    const motherPassword = document.getElementById("mother-password").value;
+
     const newChild = {
-        firstName: document.getElementById("first-name").value,
-        lastName: document.getElementById("last-name").value,
-        intolerances: document.getElementById("intolerances").value,
-        fatherPhone: document.getElementById("father-phone").value,
-        fatherPassword: document.getElementById("father-password").value,
-        motherPhone: document.getElementById("mother-phone").value,
-        motherPassword: document.getElementById("mother-password").value,
+        firstName,
+        lastName,
+        intolerances,
+        fatherPhone,
+        fatherPassword,
+        motherPhone,
+        motherPassword,
         registrationTime: new Date().toLocaleString()
     };
 
+    // Aggiungi il bambino all'array
     children.push(newChild);
     displayChildren();
 }
@@ -57,8 +68,11 @@ function displayChildren() {
             <td>${child.lastName}</td>
             <td>${child.intolerances}</td>
             <td>${child.fatherPhone}</td>
+            <td>${child.fatherPassword}</td>
             <td>${child.motherPhone}</td>
+            <td>${child.motherPassword}</td>
             <td>
+                <button class="key" onclick="openPasswordModal(${index})">🔑</button>
                 <button class="info" onclick="viewInfo(${index})">ℹ️</button>
                 <button class="trash" onclick="openDeleteModal(${index})">🗑️</button>
             </td>
@@ -67,26 +81,40 @@ function displayChildren() {
     });
 }
 
-// Funzione per aprire il modale delle informazioni
-function viewInfo(index) {
-    const child = children[index];
-    const infoText = `
-        <strong>Nome:</strong> ${child.firstName} <br>
-        <strong>Cognome:</strong> ${child.lastName} <br>
-        <strong>Intolleranze:</strong> ${child.intolerances} <br>
-        <strong>Telefono Padre:</strong> ${child.fatherPhone} <br>
-        <strong>Password Padre:</strong> ${child.fatherPassword} <br>
-        <strong>Telefono Madre:</strong> ${child.motherPhone} <br>
-        <strong>Password Madre:</strong> ${child.motherPassword} <br>
-        <strong>Iscritto il:</strong> ${child.registrationTime}
-    `;
-    document.getElementById("info-text").innerHTML = infoText;
-    document.getElementById("info-modal").style.display = "block";
+// Funzione per aprire il modale delle password
+function openPasswordModal(index) {
+    document.getElementById("password-modal").style.display = "block";
+    currentChildIndex = index;
 }
 
-// Funzione per chiudere il modale delle informazioni
-function closeInfoModal() {
-    document.getElementById("info-modal").style.display = "none";
+// Funzione per salvare le password
+function savePasswords() {
+    const fatherPassword = document.getElementById("father-password").value;
+    const motherPassword = document.getElementById("mother-password").value;
+
+    children[currentChildIndex].fatherPassword = fatherPassword;
+    children[currentChildIndex].motherPassword = motherPassword;
+
+    closePasswordModal();
+    displayChildren();
+}
+
+// Funzione per chiudere il modale delle password
+function closePasswordModal() {
+    document.getElementById("password-modal").style.display = "none";
+}
+
+// Funzione per visualizzare le informazioni
+function viewInfo(index) {
+    const child = children[index];
+    alert(`
+    Nome: ${child.firstName}
+    Cognome: ${child.lastName}
+    Genitori: ${child.fatherPhone} (Padre), ${child.motherPhone} (Madre)
+    Password Padre: ${child.fatherPassword}
+    Password Madre: ${child.motherPassword}
+    Iscritto il: ${child.registrationTime}
+    `);
 }
 
 // Funzione per aprire il modale di conferma eliminazione
