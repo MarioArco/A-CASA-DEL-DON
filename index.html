@@ -3,46 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Casa Del Don</title>
-    <link rel="stylesheet" href="style.css">
+    <title>A CASA DEL DON</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Sezione di accesso -->
-    <div id="login-section">
-        <h1>A Casa Del Don</h1>
-        <input type="text" id="phone-number" placeholder="Numero di telefono">
-        <input type="password" id="password-input" placeholder="Password">
-        <button id="login-button">Accedi</button>
-        <p class="error" id="error-message"></p>
-    </div>
+    <div class="container">
+        <h1>Centro A CASA DEL DON</h1>
 
-    <!-- Sezione principale (Dopo login) -->
-    <div id="main-section" style="display: none;">
-        <div class="header">
-            <span id="user-icon" class="emoji">&#128100;</span>
-            <div id="user-menu" class="dropdown-content">
-                <a href="javascript:void(0)" id="logout">Esci</a>
-                <a href="javascript:void(0)" id="change-password">Cambia Password</a>
+        <!-- Sezione login -->
+        <div id="login-section">
+            <input type="tel" id="phone" placeholder="Numero di telefono">
+            <input type="password" id="password" placeholder="Password">
+            <button id="login-button">Accedi</button>
+            <p id="error-message" class="error"></p>
+        </div>
+
+        <!-- Sezione contenuti -->
+        <div id="content-section" style="display:none;">
+            <h2>Iscrivi un nuovo bambino</h2>
+            <div id="registration-form">
+                <input type="text" id="name" placeholder="Nome Bambino">
+                <input type="text" id="surname" placeholder="Cognome Bambino">
+                <input type="text" id="intolerances" placeholder="Intolleranze">
+                
+                <!-- Nome e telefono del padre -->
+                <input type="text" id="fatherName" placeholder="Nome Padre">
+                <input type="tel" id="fatherPhone" placeholder="Telefono Padre">
+                <input type="password" id="fatherPassword" placeholder="Password Padre">
+                
+                <!-- Nome e telefono della madre -->
+                <input type="text" id="motherName" placeholder="Nome Madre">
+                <input type="tel" id="motherPhone" placeholder="Telefono Madre">
+                <input type="password" id="motherPassword" placeholder="Password Madre">
+
+                <button onclick="registerChild()">Iscrivi Bambino</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Intolleranze</th>
+                        <th>Nome Padre</th>
+                        <th>Telefono Padre</th>
+                        <th>Nome Madre</th>
+                        <th>Telefono Madre</th>
+                        <th>Data Iscrizione</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="children-table"></tbody>
+            </table>
+        </div>
+
+        <!-- Modale per le informazioni -->
+        <div id="info-modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="info-details"></div>
             </div>
         </div>
-
-        <h1>Benvenuto a Casa Del Don</h1>
-        <!-- Qui puoi aggiungere la tabella delle iscrizioni o altri contenuti -->
-        <div id="content-section">
-            <!-- Contenuti aggiuntivi qui -->
-        </div>
     </div>
 
-    <!-- Modale Cambia Password -->
-    <div id="password-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-password-modal">&times;</span>
-            <h3>Cambia la tua password</h3>
-            <input type="password" id="new-password" placeholder="Nuova password">
-            <button id="save-new-password">Salva</button>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
