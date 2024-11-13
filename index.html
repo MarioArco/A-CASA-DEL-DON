@@ -3,44 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Casa del Don - Gestione Bambini</title>
+    <title>A CASA DEL DON</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>A Casa del Don - Gestione Bambini</h1>
-        
-        <!-- Form di login -->
+        <h1>Centro A CASA DEL DON</h1>
+
+        <!-- Sezione login -->
         <div id="login-section">
-            <input type="text" id="phone" placeholder="Numero di telefono">
+            <input type="tel" id="phone" placeholder="Numero di telefono">
             <input type="password" id="password" placeholder="Password">
             <button id="login-button">Accedi</button>
             <p id="error-message" class="error"></p>
         </div>
 
-        <!-- Sezione principale per la registrazione dei bambini -->
-        <div id="content-section" style="display: none;">
-            <h2>Registra Bambino</h2>
-            <form id="registration-form" onsubmit="registerChild(); return false;">
-                <input type="text" id="child-name" placeholder="Nome del bambino" required>
-                <input type="text" id="child-surname" placeholder="Cognome del bambino" required>
-                <input type="text" id="intolerances" placeholder="Intolleranze (opzionale)">
-                <input type="text" id="father-name" placeholder="Nome del padre">
-                <input type="text" id="father-phone" placeholder="Telefono del padre">
-                <input type="password" id="father-password" placeholder="Password del padre">
-                <input type="text" id="mother-name" placeholder="Nome della madre">
-                <input type="text" id="mother-phone" placeholder="Telefono della madre">
-                <input type="password" id="mother-password" placeholder="Password della madre">
-                <button type="submit">Registra Bambino</button>
-            </form>
+        <!-- Sezione contenuti -->
+        <div id="content-section" style="display:none;">
+            <h2>Iscrivi un nuovo bambino</h2>
+            <div id="registration-form">
+                <input type="text" id="name" placeholder="Nome Bambino">
+                <input type="text" id="surname" placeholder="Cognome Bambino">
+                <input type="text" id="intolerances" placeholder="Intolleranze">
+                
+                <!-- Nome e telefono del padre -->
+                <input type="text" id="fatherName" placeholder="Nome Padre">
+                <input type="tel" id="fatherPhone" placeholder="Telefono Padre">
+                <input type="password" id="fatherPassword" placeholder="Password Padre">
+                
+                <!-- Nome e telefono della madre -->
+                <input type="text" id="motherName" placeholder="Nome Madre">
+                <input type="tel" id="motherPhone" placeholder="Telefono Madre">
+                <input type="password" id="motherPassword" placeholder="Password Madre">
 
-            <!-- Tabella dei bambini registrati -->
-            <h2>Bambini Registrati</h2>
-            <table>
-                <thead>
+                <button onclick="registerChild()">Iscrivi Bambino</button>
+            </div>
+
+           <table>
+               <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Cognome</th>
+                        <th>Nome Bambino</th>
+                        <th>Cognome Bambino</th>
                         <th>Intolleranze</th>
                         <th>Nome Padre</th>
                         <th>Telefono Padre</th>
@@ -54,8 +57,8 @@
             </table>
         </div>
 
-        <!-- Modale per informazioni -->
-        <div id="info-modal" style="display: none;">
+        <!-- Modale per le informazioni -->
+        <div id="info-modal" style="display:none;">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <div id="info-details"></div>
@@ -63,6 +66,6 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
