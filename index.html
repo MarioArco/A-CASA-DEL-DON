@@ -16,6 +16,9 @@
             <input type="password" id="password" placeholder="Password">
             <button id="login-button">Accedi</button>
             <p id="error-message" class="error"></p>
+
+            <!-- Link per password dimenticata -->
+            <p><a href="javascript:void(0)" id="forgot-password-link">Password dimenticata?</a></p>
         </div>
 
         <!-- Sezione contenuti -->
@@ -72,6 +75,16 @@
                 <div id="info-details"></div>
             </div>
         </div>
+
+        <!-- Modale per password dimenticata -->
+        <div id="forgot-password-modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeForgotPasswordModal()">&times;</span>
+                <h3>Password dimenticata?</h3>
+                <p>Per recuperare la password, si prega di recarsi in parrocchia presso gli uffici negli orari delle attività del mercoledì pomeriggio.</p>
+            </div>
+        </div>
+
     </div>
 
     <script src="script.js"></script>
