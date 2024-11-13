@@ -3,69 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A CASA DEL DON</title>
+    <title>A Casa Del Don</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>A CASA DEL DON</h1>
 
-        <!-- Sezione login -->
-        <div id="login-section">
-            <input type="tel" id="phone" placeholder="Numero di telefono">
-            <input type="password" id="password" placeholder="Password">
-            <button id="login-button">Accedi</button>
-            <p id="error-message" class="error"></p>
-        </div>
+<!-- Sezione Login -->
+<div id="login-section" class="container">
+    <h1>A Casa Del Don</h1>
+    <input type="text" id="phone" placeholder="Numero di telefono">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-button">Accedi</button>
+    <p id="error-message" class="error"></p>
+</div>
 
-        <!-- Sezione contenuti -->
-        <div id="content-section" style="display:none;">
-            <h2>Iscrivi un nuovo bambino</h2>
-            <div id="registration-form">
-                <input type="text" id="name" placeholder="Nome Bambino">
-                <input type="text" id="surname" placeholder="Cognome Bambino">
-                <input type="text" id="intolerances" placeholder="Intolleranze">
-                
-                <!-- Nome e telefono del padre -->
-                <input type="text" id="fatherName" placeholder="Nome Padre">
-                <input type="tel" id="fatherPhone" placeholder="Telefono Padre">
-                <input type="password" id="fatherPassword" placeholder="Password Padre">
-                
-                <!-- Nome e telefono della madre -->
-                <input type="text" id="motherName" placeholder="Nome Madre">
-                <input type="tel" id="motherPhone" placeholder="Telefono Madre">
-                <input type="password" id="motherPassword" placeholder="Password Madre">
-
-                <button onclick="registerChild()">Iscrivi Bambino</button>
-            </div>
-
-           <table>
-               <thead>
-                    <tr>
-                        <th>Nome Bambino</th>
-                        <th>Cognome Bambino</th>
-                        <th>Intolleranze</th>
-                        <th>Nome Padre</th>
-                        <th>Telefono Padre</th>
-                        <th>Nome Madre</th>
-                        <th>Telefono Madre</th>
-                        <th>Data Iscrizione</th>
-                        <th>Azioni</th>
-                    </tr>
-                </thead>
-                <tbody id="children-table"></tbody>
-            </table>
-        </div>
-
-        <!-- Modale per le informazioni -->
-        <div id="info-modal" style="display:none;">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div id="info-details"></div>
+<!-- Sezione Utente -->
+<div id="user-section" class="container" style="display: none;">
+    <div class="header">
+        <h1>A Casa Del Don</h1>
+        <div class="user-menu">
+            <span class="user-icon">👤</span>
+            <div class="dropdown">
+                <button onclick="changePassword()">Cambia password</button>
+                <button onclick="logout()">Esci</button>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="center-section">
+        <h2>Gestione Iscrizioni</h2>
+        <table id="members-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Intolleranze</th>
+                    <th>Telefono Padre</th>
+                    <th>Telefono Madre</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody id="members-body"></tbody>
+        </table>
+        <button onclick="openRegistration()">Aggiungi Membro</button>
+    </div>
+
+    <!-- Modale per Cambiare Password -->
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeChangePasswordModal()">&times;</span>
+            <h2>Cambia Password</h2>
+            <input type="password" id="new-password" placeholder="Nuova password">
+            <button onclick="saveNewPassword()">Salva</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modale per Aggiungere un Membro -->
+<div id="registration-section" class="container" style="display: none;">
+    <h2>Registrazione Membro</h2>
+    <input type="text" id="first-name" placeholder="Nome del bambino">
+    <input type="text" id="last-name" placeholder="Cognome del bambino">
+    <input type="text" id="intolerances" placeholder="Intolleranze">
+    <input type="text" id="father-phone" placeholder="Telefono Padre">
+    <input type="password" id="father-password" placeholder="Password Padre" style="display: none;">
+    <input type="text" id="mother-phone" placeholder="Telefono Madre">
+    <input type="password" id="mother-password" placeholder="Password Madre" style="display: none;">
+    <button onclick="registerMember()">Salva</button>
+    <button onclick="cancelRegistration()">Annulla</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
