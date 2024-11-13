@@ -29,39 +29,42 @@ function toggleUserMenu() {
 function changePassword() {
     const newPassword = prompt("Inserisci la nuova password:");
     if (newPassword) {
-        loggedInUser.password = newPassword; // Aggiorna la password dell'utente
+        loggedInUser.password = newPassword; // Aggiorna la password
         alert("Password cambiata con successo!");
-        document.getElementById("dropdown-menu").style.display = "none";
     }
 }
 
-// Funzione per fare il logout e tornare alla schermata iniziale
+// Funzione di logout
 function logout() {
     loggedInUser = null;
-    document.getElementById("content-section").style.display = "none";
     document.getElementById("login-section").style.display = "block";
+    document.getElementById("content-section").style.display = "none";
     document.getElementById("user-menu").style.display = "none"; // Nascondi il menu
-    document.getElementById("phone").value = "";
-    document.getElementById("password").value = "";
 }
 
-// Funzione di iscrizione
+// Funzione per visualizzare il modale per password dimenticata
+document.getElementById("forgot-password-link").onclick = function() {
+    document.getElementById("forgot-password-modal").style.display = "flex";
+};
+
+// Funzione per chiudere il modale di password dimenticata
+function closeForgotPasswordModal() {
+    document.getElementById("forgot-password-modal").style.display = "none";
+};
+
+// Funzione per registrare un bambino
 function registerChild() {
     const name = document.getElementById("name").value;
     const surname = document.getElementById("surname").value;
     const intolerances = document.getElementById("intolerances").value;
-
-    // Dati del padre
     const fatherName = document.getElementById("fatherName").value;
     const fatherPhone = document.getElementById("fatherPhone").value;
     const fatherPassword = document.getElementById("fatherPassword").value;
-
-    // Dati della madre
     const motherName = document.getElementById("motherName").value;
     const motherPhone = document.getElementById("motherPhone").value;
     const motherPassword = document.getElementById("motherPassword").value;
 
-    // Controllo delle password obbligatorie se il numero del genitore è inserito
+    // Verifica della password obbligatoria per i numeri di telefono
     if ((fatherPhone && !fatherPassword) || (motherPhone && !motherPassword)) {
         alert("La password è obbligatoria se si inserisce il numero del corrispondente genitore.");
         return;
@@ -132,7 +135,7 @@ function confirmDelete(index) {
     }
 }
 
-// Funzione per chiudere il modale
+// Funzione per chiudere il modale delle informazioni
 function closeModal() {
     document.getElementById("info-modal").style.display = "none";
 }
