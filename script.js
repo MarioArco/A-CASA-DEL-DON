@@ -1,32 +1,50 @@
+// Array per memorizzare i bambini registrati
 let children = [];
 
+// Funzione per gestire l'accesso
 document.getElementById("login-button").onclick = function() {
-    const phoneInput = document.getElementById("phone").value;
-    const passwordInput = document.getElementById("password").value;
+    const phoneInput = document.getElementById("phone").value.trim();
+    const passwordInput = document.getElementById("password").value.trim();
     const errorMessage = document.getElementById("error-message");
 
-    if ((phoneInput === "3292413810" && passwordInput === "1") || 
-        (phoneInput === "3791905110" && passwordInput === "spettacoli")) {
+    // Controlla le credenziali di accesso
+    if (phoneInput === "3292413810" && passwordInput === "1") {
+        // Accedi alla pagina di benvenuto
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("content-section").style.display = "block";
+        errorMessage.innerText = ""; // Pulisce eventuali messaggi di errore
+    } else if (phoneInput === "3791905110" && passwordInput === "spettacoli") {
+        // Accedi alla tabella di gestione del centro ricreativo
         document.getElementById("login-section").style.display = "none";
         document.getElementById("content-section").style.display = "block";
         errorMessage.innerText = "";
     } else {
+        // Mostra un messaggio di errore
         errorMessage.innerText = "Numero di telefono o password errata.";
     }
 };
 
+// Funzione per registrare un nuovo bambino
 function registerChild() {
-    const name = document.getElementById("child-name").value;
-    const surname = document.getElementById("child-surname").value;
-    const intolerances = document.getElementById("intolerances").value;
-    const fatherName = document.getElementById("father-name").value;
-    const fatherPhone = document.getElementById("father-phone").value;
-    const motherName = document.getElementById("mother-name").value;
-    const motherPhone = document.getElementById("mother-phone").value;
+    const name = document.getElementById("child-name").value.trim();
+    const surname = document.getElementById("child-surname").value.trim();
+    const intolerances = document.getElementById("intolerances").value.trim();
+    const fatherName = document.getElementById("father-name").value.trim();
+    const fatherPhone = document.getElementById("father-phone").value.trim();
+    const motherName = document.getElementById("mother-name").value.trim();
+    const motherPhone = document.getElementById("mother-phone").value.trim();
     const registrationDate = new Date().toLocaleString();
 
+    // Crea un oggetto bambino e lo aggiunge all'array
     const newChild = {
-        name, surname, intolerances, fatherName, fatherPhone, motherName, motherPhone, registrationDate
+        name,
+        surname,
+        intolerances,
+        fatherName,
+        fatherPhone,
+        motherName,
+        motherPhone,
+        registrationDate
     };
 
     children.push(newChild);
@@ -34,9 +52,11 @@ function registerChild() {
     document.getElementById("registration-form").reset();
 }
 
+// Funzione per visualizzare i bambini registrati nella tabella
 function displayChildren() {
     const childrenTable = document.getElementById("children-table");
     childrenTable.innerHTML = "";
+
     children.forEach((child, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -57,9 +77,11 @@ function displayChildren() {
     });
 }
 
+// Funzione per mostrare le informazioni dettagliate di un bambino
 function showInfo(index) {
     const child = children[index];
     const infoDetails = document.getElementById("info-details");
+
     infoDetails.innerHTML = `
         <strong>Nome:</strong> ${child.name} ${child.surname}<br>
         <strong>Intolleranze:</strong> ${child.intolerances}<br>
@@ -67,13 +89,16 @@ function showInfo(index) {
         <strong>Nome della Madre:</strong> ${child.motherName} - Telefono: ${child.motherPhone}<br>
         <strong>Data di Iscrizione:</strong> ${child.registrationDate}
     `;
+
     document.getElementById("info-modal").style.display = "block";
 }
 
+// Funzione per chiudere il modale delle informazioni
 function closeModal() {
     document.getElementById("info-modal").style.display = "none";
 }
 
+// Funzione per confermare e cancellare un bambino dalla tabella
 function confirmDelete(index) {
     if (confirm("Sei sicuro di voler eliminare questo bambino?")) {
         children.splice(index, 1);
