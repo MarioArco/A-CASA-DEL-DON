@@ -1,56 +1,122 @@
-// Inizializzazione delle credenziali
-let currentUser = null;
-const users = {
-    "3292413810": { password: "1" },
-    "3791905110": { password: "spettacoli" }
-};
+let children = []; // Array per memorizzare i bambini
 
-// Funzione di login
+// Funzione di accesso
 document.getElementById("login-button").onclick = function() {
-    const phoneNumber = document.getElementById("phone-number").value;
-    const passwordInput = document.getElementById("password-input").value;
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("password").value;
     const errorMessage = document.getElementById("error-message");
 
-    // Verifica login
-    if (users[phoneNumber] && users[phoneNumber].password === passwordInput) {
-        currentUser = phoneNumber;
+    if ((phone === "3292413810" && password === "1") || 
+        (phone === "3791905110" && password === "spettacoli")) {
         document.getElementById("login-section").style.display = "none";
-        document.getElementById("main-section").style.display = "block";
+        document.getElementById("content-section").style.display = "block";
         errorMessage.innerText = "";
     } else {
         errorMessage.innerText = "Numero di telefono o password errati.";
     }
 };
 
-// Funzione per mostrare il menu a tendina
-document.getElementById("user-icon").onclick = function() {
-    const dropdown = document.getElementById("user-menu");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-};
+// Funzione di iscrizione
+function registerChild() {
+    const name = document.getElementById("name").value;
+    const surname = document.getElementById("surname").value;
+    const intolerances = document.getElementById("intolerances").value;
 
-// Funzione per uscire dall'account
-document.getElementById("logout").onclick = function() {
-    currentUser = null;
-    document.getElementById("main-section").style.display = "none";
-    document.getElementById("login-section").style.display = "block";
-};
+    // Dati del padre
+    const fatherName = document.getElementById("fatherName").value;
+    const fatherPhone = document.getElementById("fatherPhone").value;
+    const fatherPassword = document.getElementById("fatherPassword").value;
 
-// Funzione per aprire il modale di cambio password
-document.getElementById("change-password").onclick = function() {
-    document.getElementById("password-modal").style.display = "flex";
-};
+    // Dati della madre
+    const motherName = document.getElementById("motherName").value;
+    const motherPhone = document.getElementById("motherPhone").value;
+    const motherPassword = document.getElementById("motherPassword").value;
+
+    // Controllo delle password obbligatorie se il numero del genitore è inserito
+    if ((fatherPhone && !fatherPassword) || (motherPhone && !motherPassword)) {
+        alert("La password è obbligatoria se si inserisce il numero del corrispondente genitore.");
+        return;
+    }
+
+    const newChild = {
+        name,
+        surname,
+        intolerances,
+        fatherName,
+        fatherPhone,
+        motherName,
+        motherPhone,
+        registrationDate: new Date().toLocaleString()
+    };
+
+    children.push(newChild);
+    displayChildren();
+    clearRegistrationForm();
+}
+
+// Funzione per visualizzare i bambini
+function displayChildren() {
+    const childrenTable = document.getElementById("children-table");
+    childrenTable.innerHTML = "";
+    children.forEach((child, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${child.name}</td>
+            <td>${child.surname}</td>
+            <td>${child.intolerances}</td>
+            <td>${child.fatherName}</td>
+            <td>${child.fatherPhone}</td>
+            <td>${child.motherName}</td>
+            <td>${child.motherPhone}</td>
+            <td>${child.registrationDate}</td>
+            <td>
+                <button onclick="showInfo(${index})">ℹ️</button>
+                <button onclick="confirmDelete(${index})">🗑️</button>
+            </td>
+        `;
+        childrenTable.appendChild(row);
+    });
+}
+
+// Funzione per mostrare le informazioni
+function showInfo(index) {
+    const child = children[index];
+    const infoDetails = document.getElementById("info-details");
+    infoDetails.innerHTML = `
+        <p><strong>Nome:</strong> ${child.name}</p>
+        <p><strong>Cognome:</strong> ${child.surname}</p>
+        <p><strong>Intolleranze:</strong> ${child.intolerances}</p>
+        <p><strong>Nome Padre:</strong> ${child.fatherName}</p>
+        <p><strong>Telefono Padre:</strong> ${child.fatherPhone}</p>
+        <p><strong>Nome Madre:</strong> ${child.motherName}</p>
+        <p><strong>Telefono Madre:</strong> ${child.motherPhone}</p>
+        <p><strong>Data Iscrizione:</strong> ${child.registrationDate}</p>
+    `;
+    document.getElementById("info-modal").style.display = "block";
+}
+
+// Funzione per confermare l'eliminazione
+function confirmDelete(index) {
+    if (confirm("Sei sicuro di voler eliminare questo bambino?")) {
+        children.splice(index, 1);
+        displayChildren();
+    }
+}
 
 // Funzione per chiudere il modale
-document.getElementById("close-password-modal").onclick = function() {
-    document.getElementById("password-modal").style.display = "none";
-};
+function closeModal() {
+    document.getElementById("info-modal").style.display = "none";
+}
 
-// Funzione per salvare la nuova password
-document.getElementById("save-new-password").onclick = function() {
-    const newPassword = document.getElementById("new-password").value;
-    if (newPassword) {
-        users[currentUser].password = newPassword;
-        alert("Password cambiata con successo!");
-        document.getElementById("password-modal").style.display = "none";
-    }
-};
+// Funzione per pulire il form di registrazione
+function clearRegistrationForm() {
+    document.getElementById("name").value = "";
+    document.getElementById("surname").value = "";
+    document.getElementById("intolerances").value = "";
+    document.getElementById("fatherName").value = "";
+    document.getElementById("fatherPhone").value = "";
+    document.getElementById("fatherPassword").value = "";
+    document.getElementById("motherName").value = "";
+    document.getElementById("motherPhone").value = "";
+    document.getElementById("motherPassword").value = "";
+}
