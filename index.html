@@ -3,62 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A CASA DEL DON</title>
+    <title>A Casa Del Don</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Sezione di Login -->
-    <div id="login-section" class="container">
-        <h1>A CASA DEL DON</h1>
-        <h2>Accedi al sistema</h2>
-        <input type="text" id="phone" placeholder="Numero di telefono" />
-        <input type="password" id="password" placeholder="Password" />
+    <!-- Sezione di accesso -->
+    <div id="login-section">
+        <h1>A Casa Del Don</h1>
+        <input type="text" id="phone-number" placeholder="Numero di telefono">
+        <input type="password" id="password-input" placeholder="Password">
         <button id="login-button">Accedi</button>
-        <p id="error-message" class="error"></p>
+        <p class="error" id="error-message"></p>
     </div>
 
-    <!-- Sezione di Benvenuto -->
-    <div id="welcome-section" class="container" style="display:none;">
-        <h2>Benvenuto!</h2>
-        <p>Sei entrato con successo come "3292413810".</p>
-    </div>
+    <!-- Sezione principale (Dopo login) -->
+    <div id="main-section" style="display: none;">
+        <div class="header">
+            <span id="user-icon" class="emoji">&#128100;</span>
+            <div id="user-menu" class="dropdown-content">
+                <a href="javascript:void(0)" id="logout">Esci</a>
+                <a href="javascript:void(0)" id="change-password">Cambia Password</a>
+            </div>
+        </div>
 
-    <!-- Sezione di Gestione Iscrizioni -->
-    <div id="content-section" class="container" style="display:none;">
-        <h2>Gestione Iscrizioni</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Cognome</th>
-                    <th>Intolleranze</th>
-                    <th>Telefono Padre</th>
-                    <th>Telefono Madre</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody id="members-body"></tbody>
-        </table>
-
-        <button onclick="openRegistration()">Iscrivi Nuovo Bambino</button>
-    </div>
-
-    <!-- Modale di Informazioni -->
-    <div id="info-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">×</span>
-            <h3>Informazioni Iscrizione</h3>
-            <div id="info-details"></div>
+        <h1>Benvenuto a Casa Del Don</h1>
+        <!-- Qui puoi aggiungere la tabella delle iscrizioni o altri contenuti -->
+        <div id="content-section">
+            <!-- Contenuti aggiuntivi qui -->
         </div>
     </div>
 
-    <!-- Modale di Conferma Eliminazione -->
-    <div id="confirm-delete-modal" class="modal">
+    <!-- Modale Cambia Password -->
+    <div id="password-modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeDeleteModal()">×</span>
-            <h3>Sei sicuro di voler eliminare questo bambino?</h3>
-            <button id="confirm-delete-btn">Conferma</button>
-            <button onclick="closeDeleteModal()">Annulla</button>
+            <span class="close" id="close-password-modal">&times;</span>
+            <h3>Cambia la tua password</h3>
+            <input type="password" id="new-password" placeholder="Nuova password">
+            <button id="save-new-password">Salva</button>
         </div>
     </div>
 
