@@ -161,3 +161,4 @@ function clearRegistrationForm() {
     document.getElementById("motherPhone").value = "";
     document.getElementById("motherPassword").value = "";
 }
+ 
