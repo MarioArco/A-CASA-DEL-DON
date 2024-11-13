@@ -1,16 +1,17 @@
-let members = []; // Array per memorizzare i membri registrati
 const correctCredentials = {
     "3292413810": "1",
     "3791905110": "spettacoli"
 };
 
+let members = [];
+
 // Funzione per caricare i membri dal localStorage
 function loadMembers() {
     const storedMembers = localStorage.getItem("members");
     if (storedMembers) {
-        members = JSON.parse(storedMembers); // Converte la stringa JSON in un array
+        members = JSON.parse(storedMembers);
     }
-    displayMembers(); // Mostra i membri caricati
+    displayMembers();
 }
 
 // Funzione per gestire l'accesso
@@ -20,108 +21,104 @@ document.getElementById("login-button").onclick = function() {
     const errorMessage = document.getElementById("error-message");
 
     if (correctCredentials[phoneInput] && correctCredentials[phoneInput] === passwordInput) {
-        document.getElementById("login-section").style.display = "none"; // Nasconde la sezione di login
-        document.getElementById("content-section").style.display = "block"; // Mostra la sezione principale
-        errorMessage.innerText = ""; // Rimuove eventuali messaggi di errore
-        loadMembers(); // Carica i membri dal localStorage
+        document.getElementById("login-section").style.display = "none"; 
+
+        if (phoneInput === "3292413810") {
+            document.getElementById("welcome-section").style.display = "block";  
+        } else {
+            document.getElementById("content-section").style.display = "block"; 
+            loadMembers();
+        }
+
+        errorMessage.innerText = ""; 
     } else {
-        errorMessage.innerText = "Numero di telefono o password errata."; // Mostra messaggio di errore
+        errorMessage.innerText = "Numero di telefono o password errata."; 
     }
 };
 
-// Funzione per registrare un nuovo membro
-function registerMember() {
-    const name = document.getElementById("name").value;
-    const surname = document.getElementById("surname").value;
-    const intolerances = document.getElementById("intolerances").value;
-    const fatherPhone = document.getElementById("father-phone").value;
-    const fatherPassword = document.getElementById("father-password").value;
-    const motherPhone = document.getElementById("mother-phone").value;
-    const motherPassword = document.getElementById("mother-password").value;
-
-    // Aggiungi un nuovo membro all'array
-    const newMember = {
-        name: name,
-        surname: surname,
-        intolerances: intolerances,
-        fatherPhone: fatherPhone,
-        fatherPassword: fatherPhone ? fatherPassword : null,
-        motherPhone: motherPhone,
-        motherPassword: motherPhone ? motherPassword : null,
-        registrationDate: new Date().toLocaleString() // Data e ora di registrazione
-    };
-
-    members.push(newMember);
-    localStorage.setItem("members", JSON.stringify(members)); // Salva i membri nel localStorage
-
-    displayMembers(); // Rende visibile la nuova lista di membri
-}
-
-// Funzione per visualizzare i membri nella tabella
+// Funzione per visualizzare i membri
 function displayMembers() {
     const membersBody = document.getElementById("members-body");
-    membersBody.innerHTML = ""; // Pulisce la tabella esistente
+    membersBody.innerHTML = ""; 
+
     members.forEach((member, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${member.name}</td>
-            <td>${member.surname}</td>
-            <td>${member.intolerances}</td>
-            <td>${member.fatherPhone}</td>
-            <td>${member.motherPhone}</td>
+            <td>${member.nome}</td>
+            <td>${member.cognome}</td>
+            <td>${member.intolleranze}</td>
+            <td>${member.telefonoPadre}</td>
+            <td>${member.telefonoMadre}</td>
             <td>
-                <button onclick="showMemberInfo(${index})">ℹ️</button>
-                <button onclick="deleteMember(${index})">🗑️</button>
+                <button onclick="showInfo(${index})">Info</button>
+                <button onclick="confirmDelete(${index})">Elimina</button>
             </td>
         `;
         membersBody.appendChild(row);
     });
 }
 
-// Funzione per mostrare le informazioni di un membro
-function showMemberInfo(index) {
+// Funzione per mostrare le informazioni del membro
+function showInfo(index) {
     const member = members[index];
-    alert(`
-        Nome: ${member.name} ${member.surname}
-        Intolleranze: ${member.intolerances}
-        Telefono Padre: ${member.fatherPhone} (Password: ${member.fatherPassword})
-        Telefono Madre: ${member.motherPhone} (Password: ${member.motherPassword})
-        Data di Iscrizione: ${member.registrationDate}
-    `);
+    const infoDetails = document.getElementById("info-details");
+    infoDetails.innerHTML = `
+        <strong>Nome:</strong> ${member.nome} ${member.cognome}<br>
+        <strong>Intolleranze:</strong> ${member.intolleranze}<br>
+        <strong>Telefono Padre:</strong> ${member.telefonoPadre}<br>
+        <strong>Telefono Madre:</strong> ${member.telefonoMadre}<br>
+        <strong>Data di Iscrizione:</strong> ${member.dataIscrizione}
+    `;
+    document.getElementById("info-modal").style.display = "block";
 }
 
-// Funzione per cancellare un membro
-function deleteMember(index) {
-    const confirmDelete = confirm("Sei sicuro di voler cancellare questa iscrizione?");
+// Funzione per chiudere il modale delle informazioni
+function closeModal() {
+    document.getElementById("info-modal").style.display = "none";
+}
+
+// Funzione per confermare l'eliminazione di un membro
+function confirmDelete(index) {
+    const confirmDelete = confirm("Sei sicuro di voler eliminare questo bambino?");
     if (confirmDelete) {
-        members.splice(index, 1); // Rimuove il membro dall'array
-        localStorage.setItem("members", JSON.stringify(members)); // Salva l'array aggiornato nel localStorage
-        displayMembers(); // Rende visibile la lista aggiornata
+        members.splice(index, 1);
+        saveMembers();
+        displayMembers();
     }
 }
 
-// Funzione per cambiare la password
-function changePassword() {
-    document.getElementById("change-password-modal").style.display = "block";
+// Funzione per salvare i membri nel localStorage
+function saveMembers() {
+    localStorage.setItem("members", JSON.stringify(members));
 }
 
-// Funzione per salvare la nuova password
-function saveNewPassword() {
-    const newPassword = document.getElementById("new-password").value;
-    if (newPassword) {
-        alert("Password cambiata con successo!");
-        closeChangePasswordModal();
-    } else {
-        alert("Per favore, inserisci una nuova password.");
-    }
+// Funzione per aprire il modulo di registrazione
+function openRegistration() {
+    document.getElementById("registration-section").style.display = "block";
 }
 
-// Funzione per chiudere il modale
-function closeChangePasswordModal() {
-    document.getElementById("change-password-modal").style.display = "none";
+// Funzione per annullare la registrazione
+function cancelRegistration() {
+    document.getElementById("registration-section").style.display = "none";
+    document.getElementById("nome").value = "";
+    document.getElementById("cognome").value = "";
+    document.getElementById("intolleranze").value = "";
+    document.getElementById("telefonoPadre").value = "";
+    document.getElementById("telefonoMadre").value = "";
 }
 
-// Funzione di logout
-function logout() {
-    window.location.href = "index.html"; // Reindirizza alla pagina di login
+// Funzione per registrare un nuovo membro
+function registerMember() {
+    const nome = document.getElementById("nome").value;
+    const cognome = document.getElementById("cognome").value;
+    const intolleranze = document.getElementById("intolleranze").value;
+    const telefonoPadre = document.getElementById("telefonoPadre").value;
+    const telefonoMadre = document.getElementById("telefonoMadre").value;
+    const dataIscrizione = new Date().toLocaleString();
+
+    const newMember = { nome, cognome, intolleranze, telefonoPadre, telefonoMadre, dataIscrizione };
+    members.push(newMember);
+    saveMembers();
+    displayMembers();
+    cancelRegistration();
 }
