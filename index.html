@@ -22,13 +22,20 @@
         <div id="content-section" style="display:none;">
             <h2>Iscrivi un nuovo bambino</h2>
             <div id="registration-form">
-                <input type="text" id="name" placeholder="Nome">
-                <input type="text" id="surname" placeholder="Cognome">
+                <input type="text" id="name" placeholder="Nome Bambino">
+                <input type="text" id="surname" placeholder="Cognome Bambino">
                 <input type="text" id="intolerances" placeholder="Intolleranze">
+                
+                <!-- Nome e telefono del padre -->
+                <input type="text" id="fatherName" placeholder="Nome Padre">
                 <input type="tel" id="fatherPhone" placeholder="Telefono Padre">
                 <input type="password" id="fatherPassword" placeholder="Password Padre">
+                
+                <!-- Nome e telefono della madre -->
+                <input type="text" id="motherName" placeholder="Nome Madre">
                 <input type="tel" id="motherPhone" placeholder="Telefono Madre">
                 <input type="password" id="motherPassword" placeholder="Password Madre">
+
                 <button onclick="registerChild()">Iscrivi Bambino</button>
             </div>
 
@@ -38,7 +45,9 @@
                         <th>Nome</th>
                         <th>Cognome</th>
                         <th>Intolleranze</th>
+                        <th>Nome Padre</th>
                         <th>Telefono Padre</th>
+                        <th>Nome Madre</th>
                         <th>Telefono Madre</th>
                         <th>Data Iscrizione</th>
                         <th>Azioni</th>
