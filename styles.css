@@ -28,8 +28,8 @@ input {
 }
 
 button {
-    width: 100%;
-    padding: 10px;
+    padding: 8px 12px;
+    margin: 2px;
     background-color: #3498db;
     color: white;
     border: none;
@@ -39,11 +39,6 @@ button {
 
 button:hover {
     background-color: #2980b9;
-}
-
-.error {
-    color: red;
-    text-align: center;
 }
 
 table {
@@ -74,29 +69,4 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #dfe6e9;
-}
-
-.modal-content {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 500px;
-}
-
-.close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-    color: #aaa;
-}
-
-.close:hover {
-    color: #000;
 }
