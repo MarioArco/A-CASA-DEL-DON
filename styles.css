@@ -1,3 +1,4 @@
+/* Impostazioni globali */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -5,6 +6,7 @@ body {
     padding: 20px;
 }
 
+/* Contenitore principale */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -14,11 +16,13 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Titolo principale */
 h1 {
     text-align: center;
     color: #3498db;
 }
 
+/* Stile per gli input e i bottoni */
 input {
     width: 100%;
     padding: 10px;
@@ -41,34 +45,45 @@ button:hover {
     background-color: #2980b9;
 }
 
+/* Messaggio di errore */
 .error {
     color: red;
     text-align: center;
 }
 
+/* Sezione principale dopo login */
 #main-section {
     margin-top: 20px;
 }
 
+/* Header con l'icona del profilo e il menu a tendina */
 .header {
     position: relative;
     text-align: right;
+    margin-top: 10px;
 }
 
 .emoji {
     font-size: 30px;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.emoji:hover {
+    transform: scale(1.2);
+}
+
+/* Menu a tendina per l'utente */
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 30px;
+    top: 40px;
     right: 0;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     min-width: 150px;
+    z-index: 100;
 }
 
 .dropdown-content a {
@@ -82,6 +97,12 @@ button:hover {
     background-color: #f1f1f1;
 }
 
+/* Mostra il menu a tendina quando cliccato */
+#user-icon.active + .dropdown-content {
+    display: block;
+}
+
+/* Stile per il modale di cambio password */
 #password-modal {
     display: none;
     position: fixed;
@@ -118,3 +139,45 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Modifica l'aspetto dei pulsanti nel modale */
+#save-new-password {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#save-new-password:hover {
+    background-color: #2980b9;
+}
+
+/* Modifica l'aspetto del login */
+#login-section {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#login-button:hover {
+    background-color: #2980b9;
+}
+
+#phone-number,
+#password-input {
+    margin-bottom: 10px;
+}
+
