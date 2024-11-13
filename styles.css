@@ -1,4 +1,3 @@
-/* Stile per il corpo della pagina */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -6,7 +5,6 @@ body {
     padding: 20px;
 }
 
-/* Contenitore principale */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -16,13 +14,11 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Titolo della pagina */
 h1 {
     text-align: center;
     color: #3498db;
 }
 
-/* Stili per gli input */
 input {
     width: 100%;
     padding: 10px;
@@ -31,7 +27,6 @@ input {
     border-radius: 5px;
 }
 
-/* Pulsante principale */
 button {
     width: 100%;
     padding: 10px;
@@ -46,67 +41,15 @@ button:hover {
     background-color: #2980b9;
 }
 
-/* Messaggio di errore */
 .error {
     color: red;
     text-align: center;
 }
 
-/* Header e menu utente */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border-radius: 8px;
-    margin-bottom: 20px;
+#center-section {
+    margin-top: 20px;
 }
 
-/* Menu dell'utente con l'icona */
-.user-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.user-icon {
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: white;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    overflow: hidden;
-    z-index: 1;
-    margin-top: 10px;
-}
-
-.dropdown button {
-    width: 100%;
-    padding: 10px 15px;
-    border: none;
-    background: none;
-    text-align: left;
-    color: #333;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.dropdown button:hover {
-    background-color: #f0f0f0;
-}
-
-.user-menu:hover .dropdown {
-    display: block;
-}
-
-/* Stile per la tabella */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -128,7 +71,10 @@ td {
     background-color: #ecf0f1;
 }
 
-/* Modale per cambiare password */
+#registration-form {
+    margin-top: 20px;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -137,7 +83,8 @@ td {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: auto;
 }
 
 .modal-content {
@@ -147,16 +94,17 @@ td {
     border-radius: 8px;
     width: 80%;
     max-width: 400px;
-    text-align: center;
 }
 
 .close {
     color: #aaa;
-    float: right;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.close:hover {
-    color: #333;
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
 }
