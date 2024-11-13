@@ -1,26 +1,103 @@
-let members = []; // Array per i membri registrati
+let members = []; // Array per memorizzare i membri registrati
+const correctCredentials = {
+    "3292413810": "1",
+    "3791905110": "spettacoli"
+};
 
-// Funzione di login
+// Funzione per caricare i membri dal localStorage
+function loadMembers() {
+    const storedMembers = localStorage.getItem("members");
+    if (storedMembers) {
+        members = JSON.parse(storedMembers); // Converte la stringa JSON in un array
+    }
+    displayMembers(); // Mostra i membri caricati
+}
+
+// Funzione per gestire l'accesso
 document.getElementById("login-button").onclick = function() {
-    const phone = document.getElementById("phone").value;
-    const password = document.getElementById("password").value;
+    const phoneInput = document.getElementById("phone").value;
+    const passwordInput = document.getElementById("password").value;
     const errorMessage = document.getElementById("error-message");
 
-    if (phone === "3292413810" && password === "1") {
-        document.getElementById("login-section").style.display = "none";
-        document.getElementById("user-section").style.display = "block";
-    } else if (phone === "3791905110" && password === "spettacoli") {
-        document.getElementById("login-section").style.display = "none";
-        document.getElementById("user-section").style.display = "block";
-        loadMembers();
+    if (correctCredentials[phoneInput] && correctCredentials[phoneInput] === passwordInput) {
+        document.getElementById("login-section").style.display = "none"; // Nasconde la sezione di login
+        document.getElementById("content-section").style.display = "block"; // Mostra la sezione principale
+        errorMessage.innerText = ""; // Rimuove eventuali messaggi di errore
+        loadMembers(); // Carica i membri dal localStorage
     } else {
-        errorMessage.innerText = "Numero di telefono o password errata.";
+        errorMessage.innerText = "Numero di telefono o password errata."; // Mostra messaggio di errore
     }
 };
 
-// Funzione per il logout
-function logout() {
-    window.location.href = "index.html";
+// Funzione per registrare un nuovo membro
+function registerMember() {
+    const name = document.getElementById("name").value;
+    const surname = document.getElementById("surname").value;
+    const intolerances = document.getElementById("intolerances").value;
+    const fatherPhone = document.getElementById("father-phone").value;
+    const fatherPassword = document.getElementById("father-password").value;
+    const motherPhone = document.getElementById("mother-phone").value;
+    const motherPassword = document.getElementById("mother-password").value;
+
+    // Aggiungi un nuovo membro all'array
+    const newMember = {
+        name: name,
+        surname: surname,
+        intolerances: intolerances,
+        fatherPhone: fatherPhone,
+        fatherPassword: fatherPhone ? fatherPassword : null,
+        motherPhone: motherPhone,
+        motherPassword: motherPhone ? motherPassword : null,
+        registrationDate: new Date().toLocaleString() // Data e ora di registrazione
+    };
+
+    members.push(newMember);
+    localStorage.setItem("members", JSON.stringify(members)); // Salva i membri nel localStorage
+
+    displayMembers(); // Rende visibile la nuova lista di membri
+}
+
+// Funzione per visualizzare i membri nella tabella
+function displayMembers() {
+    const membersBody = document.getElementById("members-body");
+    membersBody.innerHTML = ""; // Pulisce la tabella esistente
+    members.forEach((member, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${member.name}</td>
+            <td>${member.surname}</td>
+            <td>${member.intolerances}</td>
+            <td>${member.fatherPhone}</td>
+            <td>${member.motherPhone}</td>
+            <td>
+                <button onclick="showMemberInfo(${index})">ℹ️</button>
+                <button onclick="deleteMember(${index})">🗑️</button>
+            </td>
+        `;
+        membersBody.appendChild(row);
+    });
+}
+
+// Funzione per mostrare le informazioni di un membro
+function showMemberInfo(index) {
+    const member = members[index];
+    alert(`
+        Nome: ${member.name} ${member.surname}
+        Intolleranze: ${member.intolerances}
+        Telefono Padre: ${member.fatherPhone} (Password: ${member.fatherPassword})
+        Telefono Madre: ${member.motherPhone} (Password: ${member.motherPassword})
+        Data di Iscrizione: ${member.registrationDate}
+    `);
+}
+
+// Funzione per cancellare un membro
+function deleteMember(index) {
+    const confirmDelete = confirm("Sei sicuro di voler cancellare questa iscrizione?");
+    if (confirmDelete) {
+        members.splice(index, 1); // Rimuove il membro dall'array
+        localStorage.setItem("members", JSON.stringify(members)); // Salva l'array aggiornato nel localStorage
+        displayMembers(); // Rende visibile la lista aggiornata
+    }
 }
 
 // Funzione per cambiare la password
@@ -44,79 +121,7 @@ function closeChangePasswordModal() {
     document.getElementById("change-password-modal").style.display = "none";
 }
 
-// Funzione per aprire il modulo di registrazione
-function openRegistration() {
-    document.getElementById("registration-section").style.display = "block";
-}
-
-// Funzione per annullare la registrazione
-function cancelRegistration() {
-    document.getElementById("registration-section").style.display = "none";
-}
-
-// Funzione per registrare un nuovo membro
-function registerMember() {
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const intolerances = document.getElementById("intolerances").value;
-    const fatherPhone = document.getElementById("father-phone").value;
-    const motherPhone = document.getElementById("mother-phone").value;
-
-    if (firstName && lastName && fatherPhone && motherPhone) {
-        const newMember = {
-            firstName,
-            lastName,
-            intolerances,
-            fatherPhone,
-            motherPhone
-        };
-        members.push(newMember);
-        loadMembers();
-        cancelRegistration();
-    } else {
-        alert("Per favore, completa tutti i campi.");
-    }
-}
-
-// Funzione per caricare i membri nella tabella
-function loadMembers() {
-    const tableBody = document.getElementById("members-body");
-    tableBody.innerHTML = "";
-    members.forEach((member, index) => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${member.firstName}</td>
-            <td>${member.lastName}</td>
-            <td>${member.intolerances}</td>
-            <td>${member.fatherPhone}</td>
-            <td>${member.motherPhone}</td>
-            <td>
-                <button onclick="showInfo(${index})">i</button>
-                <button onclick="deleteMember(${index})">🗑️</button>
-            </td>
-        `;
-        tableBody.appendChild(row);
-    });
-}
-
-// Funzione per mostrare informazioni sul membro
-function showInfo(index) {
-    const member = members[index];
-    alert(`
-        Nome: ${member.firstName}
-        Cognome: ${member.lastName}
-        Intolleranze: ${member.intolerances}
-        Telefono Padre: ${member.fatherPhone}
-        Telefono Madre: ${member.motherPhone}
-    `);
-}
-
-// Funzione per eliminare un membro
-function deleteMember(index) {
-    const confirmDelete = confirm("Sei sicuro di voler eliminare questo bambino?");
-    if (confirmDelete) {
-        members.splice(index, 1);
-        loadMembers();
-    }
+// Funzione di logout
+function logout() {
+    window.location.href = "index.html"; // Reindirizza alla pagina di login
 }
