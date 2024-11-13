@@ -1,3 +1,4 @@
+/* Stile per il corpo della pagina */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -5,6 +6,7 @@ body {
     padding: 20px;
 }
 
+/* Contenitore principale */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -14,11 +16,13 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Titolo della pagina */
 h1 {
     text-align: center;
     color: #3498db;
 }
 
+/* Stili per gli input */
 input {
     width: 100%;
     padding: 10px;
@@ -27,9 +31,10 @@ input {
     border-radius: 5px;
 }
 
+/* Pulsante principale */
 button {
-    padding: 8px 12px;
-    margin: 2px;
+    width: 100%;
+    padding: 10px;
     background-color: #3498db;
     color: white;
     border: none;
@@ -41,17 +46,77 @@ button:hover {
     background-color: #2980b9;
 }
 
+/* Messaggio di errore */
+.error {
+    color: red;
+    text-align: center;
+}
+
+/* Header e menu utente */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Menu dell'utente con l'icona */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 10px;
+}
+
+.dropdown button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    text-align: left;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown button:hover {
+    background-color: #f0f0f0;
+}
+
+.user-menu:hover .dropdown {
+    display: block;
+}
+
+/* Stile per la tabella */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-size: 16px;
 }
 
 th, td {
-    padding: 12px;
+    padding: 10px;
     border: 1px solid #ddd;
-    text-align: center;
+    text-align: left;
 }
 
 th {
@@ -63,10 +128,35 @@ td {
     background-color: #ecf0f1;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+/* Modale per cambiare password */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-tr:hover {
-    background-color: #dfe6e9;
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
 }
