@@ -21,11 +21,18 @@ function registerChild() {
     const name = document.getElementById("name").value;
     const surname = document.getElementById("surname").value;
     const intolerances = document.getElementById("intolerances").value;
+
+    // Dati del padre
+    const fatherName = document.getElementById("fatherName").value;
     const fatherPhone = document.getElementById("fatherPhone").value;
     const fatherPassword = document.getElementById("fatherPassword").value;
+
+    // Dati della madre
+    const motherName = document.getElementById("motherName").value;
     const motherPhone = document.getElementById("motherPhone").value;
     const motherPassword = document.getElementById("motherPassword").value;
-    
+
+    // Controllo delle password obbligatorie se il numero del genitore è inserito
     if ((fatherPhone && !fatherPassword) || (motherPhone && !motherPassword)) {
         alert("La password è obbligatoria se si inserisce il numero del corrispondente genitore.");
         return;
@@ -35,10 +42,10 @@ function registerChild() {
         name,
         surname,
         intolerances,
+        fatherName,
         fatherPhone,
-        fatherPassword,
+        motherName,
         motherPhone,
-        motherPassword,
         registrationDate: new Date().toLocaleString()
     };
 
@@ -57,7 +64,9 @@ function displayChildren() {
             <td>${child.name}</td>
             <td>${child.surname}</td>
             <td>${child.intolerances}</td>
+            <td>${child.fatherName}</td>
             <td>${child.fatherPhone}</td>
+            <td>${child.motherName}</td>
             <td>${child.motherPhone}</td>
             <td>${child.registrationDate}</td>
             <td>
@@ -77,10 +86,10 @@ function showInfo(index) {
         <p><strong>Nome:</strong> ${child.name}</p>
         <p><strong>Cognome:</strong> ${child.surname}</p>
         <p><strong>Intolleranze:</strong> ${child.intolerances}</p>
+        <p><strong>Nome Padre:</strong> ${child.fatherName}</p>
         <p><strong>Telefono Padre:</strong> ${child.fatherPhone}</p>
-        <p><strong>Password Padre:</strong> ${child.fatherPassword}</p>
+        <p><strong>Nome Madre:</strong> ${child.motherName}</p>
         <p><strong>Telefono Madre:</strong> ${child.motherPhone}</p>
-        <p><strong>Password Madre:</strong> ${child.motherPassword}</p>
         <p><strong>Data Iscrizione:</strong> ${child.registrationDate}</p>
     `;
     document.getElementById("info-modal").style.display = "block";
@@ -104,8 +113,10 @@ function clearRegistrationForm() {
     document.getElementById("name").value = "";
     document.getElementById("surname").value = "";
     document.getElementById("intolerances").value = "";
+    document.getElementById("fatherName").value = "";
     document.getElementById("fatherPhone").value = "";
     document.getElementById("fatherPassword").value = "";
+    document.getElementById("motherName").value = "";
     document.getElementById("motherPhone").value = "";
     document.getElementById("motherPassword").value = "";
 }
