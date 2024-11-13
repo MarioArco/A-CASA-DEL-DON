@@ -85,6 +85,17 @@
             </div>
         </div>
 
+        <!-- Modale per cambiare la password -->
+        <div id="change-password-modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeChangePasswordModal()">&times;</span>
+                <h3>Cambia Password</h3>
+                <input type="password" id="new-password" placeholder="Nuova Password">
+                <input type="password" id="confirm-password" placeholder="Conferma Password">
+                <button onclick="saveNewPassword()">Salva Nuova Password</button>
+            </div>
+        </div>
+
     </div>
 
     <script src="script.js"></script>
