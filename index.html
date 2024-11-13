@@ -20,6 +20,14 @@
 
         <!-- Sezione contenuti -->
         <div id="content-section" style="display:none;">
+            <div id="user-menu" style="display:none;">
+                <span id="user-icon" onclick="toggleUserMenu()">👤</span>
+                <div id="dropdown-menu" class="dropdown-content" style="display:none;">
+                    <a href="#" onclick="changePassword()">Cambia Password</a>
+                    <a href="#" onclick="logout()">Esci</a>
+                </div>
+            </div>
+
             <h2>Iscrivi un nuovo bambino</h2>
             <div id="registration-form">
                 <input type="text" id="name" placeholder="Nome Bambino">
