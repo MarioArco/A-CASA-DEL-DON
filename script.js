@@ -27,32 +27,31 @@ function toggleUserMenu() {
 
 // Funzione per cambiare la password
 function changePassword() {
-    const newPassword = prompt("Inserisci la nuova password:");
-    if (newPassword) {
-        loggedInUser.password = newPassword; // Aggiorna la password
+    document.getElementById("change-password-modal").style.display = "block";
+}
+
+// Funzione per salvare la nuova password
+function saveNewPassword() {
+    const newPassword = document.getElementById("new-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (newPassword === confirmPassword) {
+        loggedInUser.password = newPassword; // Cambia la password dell'utente
         alert("Password cambiata con successo!");
+        closeChangePasswordModal();
+    } else {
+        alert("Le password non corrispondono!");
     }
 }
 
-// Funzione di logout
+// Funzione per uscire
 function logout() {
     loggedInUser = null;
-    document.getElementById("login-section").style.display = "block";
     document.getElementById("content-section").style.display = "none";
-    document.getElementById("user-menu").style.display = "none"; // Nascondi il menu
+    document.getElementById("login-section").style.display = "block";
 }
 
-// Funzione per visualizzare il modale per password dimenticata
-document.getElementById("forgot-password-link").onclick = function() {
-    document.getElementById("forgot-password-modal").style.display = "flex";
-};
-
-// Funzione per chiudere il modale di password dimenticata
-function closeForgotPasswordModal() {
-    document.getElementById("forgot-password-modal").style.display = "none";
-};
-
-// Funzione per registrare un bambino
+// Funzione per la registrazione del bambino
 function registerChild() {
     const name = document.getElementById("name").value;
     const surname = document.getElementById("surname").value;
@@ -138,6 +137,16 @@ function confirmDelete(index) {
 // Funzione per chiudere il modale delle informazioni
 function closeModal() {
     document.getElementById("info-modal").style.display = "none";
+}
+
+// Funzione per chiudere il modale di password dimenticata
+function closeForgotPasswordModal() {
+    document.getElementById("forgot-password-modal").style.display = "none";
+}
+
+// Funzione per chiudere il modale di cambio password
+function closeChangePasswordModal() {
+    document.getElementById("change-password-modal").style.display = "none";
 }
 
 // Funzione per pulire il form di registrazione
