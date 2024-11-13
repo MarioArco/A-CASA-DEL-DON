@@ -1,4 +1,5 @@
 let children = []; // Array per memorizzare i bambini
+let loggedInUser = null; // Variabile per memorizzare l'utente loggato
 
 // Funzione di accesso
 document.getElementById("login-button").onclick = function() {
@@ -10,11 +11,39 @@ document.getElementById("login-button").onclick = function() {
         (phone === "3791905110" && password === "spettacoli")) {
         document.getElementById("login-section").style.display = "none";
         document.getElementById("content-section").style.display = "block";
+        loggedInUser = { phone, password }; // Memorizziamo l'utente loggato
+        document.getElementById("user-menu").style.display = "block"; // Mostra il menu
         errorMessage.innerText = "";
     } else {
         errorMessage.innerText = "Numero di telefono o password errati.";
     }
 };
+
+// Funzione per mostrare/nascondere il menu utente
+function toggleUserMenu() {
+    const menu = document.getElementById("dropdown-menu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Funzione per cambiare la password
+function changePassword() {
+    const newPassword = prompt("Inserisci la nuova password:");
+    if (newPassword) {
+        loggedInUser.password = newPassword; // Aggiorna la password dell'utente
+        alert("Password cambiata con successo!");
+        document.getElementById("dropdown-menu").style.display = "none";
+    }
+}
+
+// Funzione per fare il logout e tornare alla schermata iniziale
+function logout() {
+    loggedInUser = null;
+    document.getElementById("content-section").style.display = "none";
+    document.getElementById("login-section").style.display = "block";
+    document.getElementById("user-menu").style.display = "none"; // Nascondi il menu
+    document.getElementById("phone").value = "";
+    document.getElementById("password").value = "";
+}
 
 // Funzione di iscrizione
 function registerChild() {
